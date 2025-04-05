@@ -47,78 +47,89 @@ const SkinScanner = () => {
   };
 
   return (
-    <Box sx={{ minHeight: '100vh', bgcolor: '#f5f5f5' }}>
+    <div className="min-h-screen bg-white">
       <TopBar />
-      <Container maxWidth="md" sx={{ py: 4 }}>
-        <Paper elevation={3} sx={{ p: 4 }}>
-          <Typography variant="h4" gutterBottom align="center">
-            Skin Scanner
-          </Typography>
-          
-          <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 3 }}>
-            {previewUrl && (
-              <Box sx={{ width: '100%', maxWidth: 400, mb: 2 }}>
-                <img
-                  src={previewUrl}
-                  alt="Selected skin condition"
-                  style={{ width: '100%', height: 'auto', borderRadius: 8 }}
-                />
-              </Box>
-            )}
+      <div className="pt-32 pb-20 px-6">
+        <div className="container mx-auto max-w-4xl">
+          <div className="card p-8">
+            <h1 className="text-4xl font-display font-bold text-primary-900 mb-8 text-center">
+              Skin Scanner
+            </h1>
+            
+            <div className="flex flex-col items-center gap-6">
+              {previewUrl && (
+                <div className="w-full max-w-md mb-4">
+                  <img
+                    src={previewUrl}
+                    alt="Selected skin condition"
+                    className="w-full h-auto rounded-2xl shadow-card"
+                  />
+                </div>
+              )}
 
-            <Button
-              variant="contained"
-              component="label"
-              sx={{ width: '100%', maxWidth: 400 }}
-            >
-              Upload Skin Image
-              <input
-                type="file"
-                hidden
-                accept="image/*"
-                onChange={handleImageUpload}
-              />
-            </Button>
-
-            {selectedImage && (
-              <Button
-                variant="contained"
-                color="primary"
-                onClick={handleScan}
-                disabled={isLoading}
-                sx={{ width: '100%', maxWidth: 400 }}
+              <button
+                className="w-full max-w-md px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium shadow-card hover:shadow-hover"
+                onClick={() => document.getElementById('file-upload')?.click()}
               >
-                {isLoading ? <CircularProgress size={24} /> : 'Analyze Skin'}
-              </Button>
-            )}
+                Upload Skin Image
+                <input
+                  id="file-upload"
+                  type="file"
+                  className="hidden"
+                  accept="image/*"
+                  onChange={handleImageUpload}
+                />
+              </button>
 
-            {result && (
-              <Paper elevation={2} sx={{ p: 3, width: '100%', maxWidth: 400 }}>
-                <Typography variant="h6" gutterBottom>
-                  Analysis Results
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                  Diagnosis: {result.diagnosis}
-                </Typography>
-                <Typography variant="body1" gutterBottom>
-                  Confidence: {(result.confidence * 100).toFixed(1)}%
-                </Typography>
-                <Typography variant="h6" sx={{ mt: 2 }} gutterBottom>
-                  Recommendations:
-                </Typography>
-                <ul>
-                  {result.recommendations.map((rec, index) => (
-                    <li key={index}>
-                      <Typography variant="body1">{rec}</Typography>
-                    </li>
-                  ))}
-                </ul>
-              </Paper>
-            )}
-          </Box>
-        </Paper>
-      </Container>
-    </Box>
+              {selectedImage && (
+                <button
+                  className="w-full max-w-md px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium shadow-card hover:shadow-hover disabled:opacity-50 disabled:cursor-not-allowed"
+                  onClick={handleScan}
+                  disabled={isLoading}
+                >
+                  {isLoading ? (
+                    <div className="flex items-center justify-center">
+                      <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      Analyzing...
+                    </div>
+                  ) : (
+                    'Analyze Skin'
+                  )}
+                </button>
+              )}
+
+              {result && (
+                <div className="w-full max-w-md card p-6">
+                  <h2 className="text-2xl font-display font-semibold text-primary-900 mb-4">
+                    Analysis Results
+                  </h2>
+                  <div className="space-y-4">
+                    <div>
+                      <h3 className="text-lg font-medium text-primary-700">Diagnosis</h3>
+                      <p className="text-primary-800">{result.diagnosis}</p>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-medium text-primary-700">Confidence</h3>
+                      <p className="text-primary-800">{(result.confidence * 100).toFixed(1)}%</p>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-medium text-primary-700 mb-2">Recommendations</h3>
+                      <ul className="list-disc list-inside space-y-2">
+                        {result.recommendations.map((rec, index) => (
+                          <li key={index} className="text-primary-800">
+                            {rec}
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

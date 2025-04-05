@@ -9,15 +9,15 @@ const TopBar = () => {
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-24">
           <Link to="/" className="flex items-center space-x-3">
-            <span className="text-3xl font-display font-bold text-primary-800">Dermo</span>
+            <span className="text-3xl logo text-blue-600">Dermo</span>
             <span className="text-sm text-primary-600 font-medium">AI Dermatology</span>
           </Link>
           
           <div className="hidden md:flex items-center space-x-10">
-            <Link to="/" className="text-primary-700 hover:text-secondary-600 transition-colors font-medium">Home</Link>
-            <Link to="/diagnosis" className="text-primary-700 hover:text-secondary-600 transition-colors font-medium">Diagnosis</Link>
-            <Link to="/about" className="text-primary-700 hover:text-secondary-600 transition-colors font-medium">About</Link>
-            <button className="px-6 py-2 bg-secondary-600 text-white rounded-full hover:bg-secondary-700 transition-colors font-medium">
+            <Link to="/" className="text-primary-700 hover:text-blue-600 transition-colors font-medium">Home</Link>
+            <Link to="/diagnosis" className="text-primary-700 hover:text-blue-600 transition-colors font-medium">Diagnosis</Link>
+            <Link to="/about" className="text-primary-700 hover:text-blue-600 transition-colors font-medium">About</Link>
+            <button className="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium">
               Get Started
             </button>
           </div>
@@ -35,10 +35,10 @@ const TopBar = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-4 animate-fade-in">
-            <Link to="/" className="block text-primary-700 hover:text-secondary-600 transition-colors font-medium">Home</Link>
-            <Link to="/diagnosis" className="block text-primary-700 hover:text-secondary-600 transition-colors font-medium">Diagnosis</Link>
-            <Link to="/about" className="block text-primary-700 hover:text-secondary-600 transition-colors font-medium">About</Link>
-            <button className="w-full px-6 py-2 bg-secondary-600 text-white rounded-full hover:bg-secondary-700 transition-colors font-medium">
+            <Link to="/" className="block text-primary-700 hover:text-blue-600 transition-colors font-medium">Home</Link>
+            <Link to="/diagnosis" className="block text-primary-700 hover:text-blue-600 transition-colors font-medium">Diagnosis</Link>
+            <Link to="/about" className="block text-primary-700 hover:text-blue-600 transition-colors font-medium">About</Link>
+            <button className="w-full px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium">
               Get Started
             </button>
           </div>
