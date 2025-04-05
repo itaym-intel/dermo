@@ -7,7 +7,7 @@ const LandingPage = () => {
   const scanners = [
     {
       title: 'Skin Scanner',
-      description: 'Get a comprehensive analysis of your skin condition with our advanced AI technology.',
+      description: 'Get a comprehensive analysis of your skin condition with our AI technology.',
       path: '/skin-scanner',
     },
     {
