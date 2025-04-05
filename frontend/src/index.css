@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&family=Righteous&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -33,6 +33,10 @@
 
   .btn-secondary {
     @apply bg-white text-primary-700 border-2 border-primary-200 hover:bg-primary-50;
+  }
+
+  .logo {
+    @apply font-['Righteous'] tracking-wide;
   }
 }
 
