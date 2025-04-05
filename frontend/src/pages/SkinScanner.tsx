@@ -1,5 +1,4 @@
-import React, { useState } from 'react';
-import { Box, Button, Container, Typography, Paper, CircularProgress } from '@mui/material';
+import { useState } from 'react';
 import TopBar from '../components/TopBar';
 
 interface ScanResult {
@@ -52,7 +51,7 @@ const SkinScanner = () => {
       <div className="pt-32 pb-20 px-6">
         <div className="container mx-auto max-w-4xl">
           <div className="card p-8">
-            <h1 className="text-4xl font-display font-bold text-primary-900 mb-8 text-center">
+            <h1 className="text-4xl font-display text-primary-900 mb-8 text-center">
               Skin Scanner
             </h1>
             
@@ -100,7 +99,7 @@ const SkinScanner = () => {
 
               {result && (
                 <div className="w-full max-w-md card p-6">
-                  <h2 className="text-2xl font-display font-semibold text-primary-900 mb-4">
+                  <h2 className="text-2xl font-display text-primary-900 mb-4">
                     Analysis Results
                   </h2>
                   <div className="space-y-4">
