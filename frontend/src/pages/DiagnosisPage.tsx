@@ -11,9 +11,7 @@ const DiagnosisPage = () => {
       <TopBar />
       <Container maxWidth="md" sx={{ py: 4 }}>
         <Paper elevation={3} sx={{ p: 4 }}>
-          <Typography variant="h4" gutterBottom align="center">
-            Choose Your Scanner
-          </Typography>
+
           <Box
             sx={{
               display: 'flex',
