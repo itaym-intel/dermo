@@ -8,9 +8,10 @@ const TopBar = () => {
     <nav className="bg-white fixed w-full top-0 z-50 transition-all duration-300">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-24">
-          <Link to="/" className="flex items-center space-x-3">
-            <span className="text-3xl logo text-blue-600">Dermo</span>
-            <span className="text-sm text-primary-600 font-medium">AI Dermatology</span>
+          <Link to="/" className="flex items-center space-x-3 select-none">
+            <div className="px-3 py-1.5 bg-blue-600 text-white border-2 border-blue-600 rounded-full hover:none transition-colors select-none">
+              <span className="text-2xl logo select-none">Dermo</span>
+            </div>
           </Link>
           
           <div className="hidden md:flex items-center space-x-10">

@@ -73,7 +73,7 @@ const LandingPage = () => {
       <section className="py-32 bg-white">
         <div className="container mx-auto max-w-6xl px-6">
           <div className="text-center mb-20">
-            <h2 className="text-4xl font-display font-bold text-primary-900 mb-6">
+            <h2 className="text-3xl md:text-4xl font-display font-bold text-primary-900 mb-6">
               Our Diagnostic Tools
             </h2>
             <p className="text-xl text-primary-700 max-w-2xl mx-auto">

@@ -46,7 +46,8 @@ module.exports = {
       },
       fontFamily: {
         sans: ['Montserrat', 'system-ui', 'sans-serif'],
-        display: ['Playfair Display', 'serif'],
+        display: ['Zain', 'serif'],
+        logo: ['Righteous', 'cursive'],
       },
       boxShadow: {
         'soft': '0 2px 4px rgba(0, 0, 0, 0.05)',
