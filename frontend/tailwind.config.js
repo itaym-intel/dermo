@@ -49,6 +49,9 @@ module.exports = {
         display: ['Zain', 'serif'],
         logo: ['Righteous', 'cursive'],
       },
+      fontWeight: {
+        display: '700',
+      },
       boxShadow: {
         'soft': '0 2px 4px rgba(0, 0, 0, 0.05)',
         'card': '0 4px 20px rgba(0, 0, 0, 0.08)',
