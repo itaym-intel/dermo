@@ -139,8 +139,8 @@ async def predict(file: UploadFile = File(...)):
     pred_idx = outputs.argmax(dim=1).item()
     pred_class = idx_to_class[pred_idx]
 
-    # For example, get advice from an LLM or a local map
-    response = get_medical_advice(pred_class)
+    # For example, get advice from an LLM or a local mapdsfds fds
+    response = get_medical_advice(pred_class)['choices'][0]['message']['content']
 
     # Return as a dict (JSON)
     return {

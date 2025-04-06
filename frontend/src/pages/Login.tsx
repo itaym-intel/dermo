@@ -58,8 +58,8 @@ const Login = () => {
       <Container maxWidth="sm" sx={{ position: 'relative', zIndex: 1 }}>
         <Box sx={{ p: 4 }}>
           <div className="flex items-center justify-center mb-4">
-            <div className="px-3 py-1.5 bg-blue-600 text-white border-2 border-blue-600 rounded-full text-center">
-              <span className="text-2xl logo select-none">Dermo</span>
+            <div className="px-4 py-2 bg-blue-600 text-white border-2 border-blue-600 rounded-full text-center">
+              <span className="text-4xl logo select-none">Dermo</span>
             </div>
           </div>
 
@@ -121,11 +121,11 @@ const Login = () => {
               sx={{
                 py: 1.5,
                 borderRadius: '8px',
-                backgroundColor: '#1c7ed6',
+                backgroundColor: '#2563eb',
                 textTransform: 'none',
                 fontSize: '1rem',
                 '&:hover': {
-                  backgroundColor: '#1864ab',
+                  backgroundColor: '#1d4ed8',
                 },
               }}
             >

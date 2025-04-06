@@ -47,9 +47,10 @@ const SkinResults: React.FC<SkinResultsProps> = ({ result, onBack }) => {
     );
   }
 
-  const getSeverityColor = (severity: string) => {
+  const getSeverityColor = (severity: string | undefined) => {
+    if (!severity) return 'text-gray-600 bg-gray-50 border-gray-200';
+    
     const severityLower = severity.toLowerCase();
-    console.log(severityLower);
     for (const word of ['mild', 'low']) {
       if (severityLower.includes(word)) return 'text-blue-600 bg-blue-50 border-blue-200';
     }
@@ -64,6 +65,14 @@ const SkinResults: React.FC<SkinResultsProps> = ({ result, onBack }) => {
 
   const severityStyles = getSeverityColor(result.advice.Severity);
   const confidencePercentage = Math.round(result.confidence * 100);
+  
+  // Function to determine progress bar color based on confidence level
+  const getConfidenceColor = (confidence: number) => {
+    if (confidence >= 0.8) return 'bg-green-500';
+    if (confidence >= 0.6) return 'bg-blue-500';
+    if (confidence >= 0.4) return 'bg-yellow-500';
+    return 'bg-red-500';
+  };
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -78,8 +87,8 @@ const SkinResults: React.FC<SkinResultsProps> = ({ result, onBack }) => {
       <div className={`p-6 rounded-2xl ${severityStyles.split(' ')[1]} border-2 ${severityStyles.split(' ')[2]} shadow-lg mb-8`}>
         <div className="flex items-center gap-4 mb-6">
           <div className={`text-5xl ${severityStyles.split(' ')[0]}`}>
-            {result.advice.Severity.toLowerCase().includes('mild') ? '🔵' : 
-             result.advice.Severity.toLowerCase().includes('moderate') ? '🟡' : '🔴'}
+            {result.advice.Severity?.toLowerCase().includes('mild') ? '🔵' : 
+             result.advice.Severity?.toLowerCase().includes('moderate') ? '🟡' : '🔴'}
           </div>
           <h3 className={`text-3xl font-bold ${severityStyles.split(' ')[0]}`}>
             {result.prediction || 'Unknown Condition'}
@@ -89,16 +98,21 @@ const SkinResults: React.FC<SkinResultsProps> = ({ result, onBack }) => {
         {/* Confidence Level */}
         <div className="bg-white p-4 rounded-xl shadow-sm">
           <h4 className="text-3xl font-bold text-gray-800 mb-3">Confidence Level</h4>
-          <div className="flex items-center gap-4">
-            <div className="relative flex-1 h-3 bg-gray-100 rounded-full">
-              <div 
-                className={`absolute inset-0 ${severityStyles.split(' ')[0].replace('text', 'bg')} rounded-full transition-all duration-500`}
-                style={{ width: `${confidencePercentage}%` }}
-              />
-            </div>
-            <div className="w-20 text-right">
-              <span className="text-xl font-semibold text-gray-700">{confidencePercentage}%</span>
-            </div>
+          <div className="text-xl font-semibold text-gray-700 mb-2">
+            {confidencePercentage}%
+          </div>
+          
+          {/* Confidence Progress Bar */}
+          <div className="w-full bg-gray-200 rounded-full h-4 mb-2">
+            <div 
+              className={`h-4 rounded-full ${getConfidenceColor(result.confidence)}`}
+              style={{ width: `${confidencePercentage}%` }}
+            ></div>
+          </div>
+          <div className="text-sm text-gray-500">
+            {confidencePercentage >= 80 ? 'Very High Confidence' : 
+             confidencePercentage >= 60 ? 'High Confidence' : 
+             confidencePercentage >= 40 ? 'Moderate Confidence' : 'Low Confidence'}
           </div>
         </div>
       </div>
