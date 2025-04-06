@@ -34,7 +34,7 @@ const DiagnosisPage = () => {
                       </svg>
                     </div>
                   </div>
-                  <p className="text-primary-700 mb-6">Monitor and analyze your moles for any concerning changes or patterns. Our AI helps track changes over time and provides early detection insights.</p>
+                  <p className="text-primary-700 mb-6">Our AI-powered mole scanner analyzes your moles for potential signs of skin cancer. Get instant results and personalized recommendations.</p>
                   <div className="flex items-center text-blue-600 font-medium">
                     Start Analysis
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
@@ -58,7 +58,7 @@ const DiagnosisPage = () => {
                       </svg>
                     </div>
                   </div>
-                  <p className="text-primary-700 mb-6">Get a comprehensive analysis of your skin condition with our AI technology. Perfect for monitoring overall skin health and identifying potential concerns.</p>
+                  <p className="text-primary-700 mb-6">Get a comprehensive analysis of your skin condition. Our AI can identify 22 different skin conditions including acne, eczema, psoriasis, and more.</p>
                   <div className="flex items-center text-blue-600 font-medium">
                     Start Analysis
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
@@ -92,7 +92,7 @@ const DiagnosisPage = () => {
                   </svg>
                 </div>
                 <h3 className="text-xl font-display text-primary-900 mb-2">AI Analysis</h3>
-                <p className="text-primary-700">Our advanced AI analyzes your image using dermatology-trained algorithms.</p>
+                <p className="text-primary-700">Our advanced AI models analyze your image using state-of-the-art deep learning algorithms.</p>
               </div>
               <div className="card p-6">
                 <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
@@ -101,7 +101,7 @@ const DiagnosisPage = () => {
                   </svg>
                 </div>
                 <h3 className="text-xl font-display text-primary-900 mb-2">Get Results</h3>
-                <p className="text-primary-700">Receive detailed analysis and personalized recommendations within minutes.</p>
+                <p className="text-primary-700">Receive detailed analysis, confidence scores, and personalized medical advice within seconds.</p>
               </div>
             </div>
           </div>
@@ -114,19 +114,19 @@ const DiagnosisPage = () => {
             <div className="grid md:grid-cols-2 gap-8">
               <div className="card p-6 text-left">
                 <h3 className="text-xl font-display text-primary-900 mb-2">How accurate is the analysis?</h3>
-                <p className="text-primary-700">Our AI has been trained on millions of dermatology cases and maintains a high accuracy rate. However, it should be used as a supplementary tool and not replace professional medical advice.</p>
+                <p className="text-primary-700">Our AI models have been trained on extensive dermatology datasets. The mole scanner uses a specialized EdgeNeXt model, while the skin scanner employs a Vision Transformer (ViT) architecture for comprehensive skin condition analysis.</p>
               </div>
               <div className="card p-6 text-left">
-                <h3 className="text-xl font-display text-primary-900 mb-2">Is my data secure?</h3>
-                <p className="text-primary-700">Yes, we use end-to-end encryption and follow strict privacy protocols. Your images and data are never shared without your consent.</p>
+                <h3 className="text-xl font-display text-primary-900 mb-2">What skin conditions can you detect?</h3>
+                <p className="text-primary-700">Our skin scanner can identify 22 different conditions including acne, eczema, psoriasis, rosacea, skin cancer, and more. The mole scanner specifically focuses on detecting potential signs of skin cancer.</p>
               </div>
               <div className="card p-6 text-left">
-                <h3 className="text-xl font-display text-primary-900 mb-2">How often should I scan?</h3>
-                <p className="text-primary-700">For general skin health, we recommend monthly scans. For mole monitoring, scans every 3-6 months are ideal to track changes over time.</p>
+                <h3 className="text-xl font-display text-primary-900 mb-2">How do I get the best results?</h3>
+                <p className="text-primary-700">For optimal results, ensure good lighting, keep the camera steady, and capture the affected area clearly. Follow the on-screen guidelines for positioning and image quality.</p>
               </div>
               <div className="card p-6 text-left">
-                <h3 className="text-xl font-display text-primary-900 mb-2">Can I share results with my doctor?</h3>
-                <p className="text-primary-700">Absolutely! You can easily export and share your analysis results with healthcare professionals for further consultation.</p>
+                <h3 className="text-xl font-display text-primary-900 mb-2">Should I consult a doctor?</h3>
+                <p className="text-primary-700">While our AI provides valuable insights, it's always recommended to consult with a healthcare professional for a definitive diagnosis and treatment plan. Our results should be used as a supplementary tool, not a replacement for professional medical advice.</p>
               </div>
             </div>
           </div>

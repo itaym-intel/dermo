@@ -91,6 +91,7 @@ const SkinScanner = () => {
     x: 0.5,
     y: 0.5
   });
+  selectedImage;
   const [croppedImage, setCroppedImage] = useState<string>('');
   const imageRef = useRef<HTMLImageElement>(null);
 
