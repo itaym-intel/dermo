@@ -25,7 +25,7 @@ const PhotoGuidelines = () => (
       <div className="space-y-2">
         <h3 className="text-3xl font-bold text-primary-900">Bad Example</h3>
         <img
-          src="/assets/images/bad_skin_example.png"
+          src="/assets/images/bad_mole_example.png"
           alt="Bad skin photo example"
           className="w-full h-auto rounded-lg shadow-sm"
         />
@@ -33,7 +33,7 @@ const PhotoGuidelines = () => (
       <div className="space-y-2">
         <h3 className="text-3xl font-bold text-primary-900">Good Example</h3>
         <img
-          src="/assets/images/skin_example.png"
+          src="/assets/images/mole_example.png"
           alt="Good skin photo example"
           className="w-full h-auto rounded-lg shadow-sm"
         />
