@@ -79,7 +79,7 @@ const LandingPage = () => {
             <h1 className="text-3xl md:text-6xl font-display mb-8 leading-snug">
               <div>Your Personal</div>
               <div>
-                <span className="logo text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800 text-bold">Demtology</span>
+                <span className="logo text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-blue-800 text-bold">Dermatology</span>
               </div>
               <div>Smart Assistant</div>
             </h1>
