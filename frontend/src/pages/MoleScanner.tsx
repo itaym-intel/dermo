@@ -132,10 +132,9 @@ const MoleScanner = () => {
       const file = new File([blob], 'cropped-mole.jpg', { type: 'image/jpeg' });
 
       const formData = new FormData();
-      formData.append('image', file);
+      formData.append('file', file);
 
-      // TODO: Replace with your actual FastAPI endpoint
-      const apiResponse = await fetch('http://localhost:8000/analyze-mole', {
+      const apiResponse = await fetch(`${import.meta.env.VITE_API_URL}/predict`, {
         method: 'POST',
         body: formData,
       });
