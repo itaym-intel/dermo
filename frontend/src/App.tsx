@@ -5,6 +5,7 @@ import DiagnosisPage from './pages/DiagnosisPage';
 import SkinScanner from './pages/SkinScanner';
 import MoleScanner from './pages/MoleScanner';
 import Login from './pages/Login';
+import About from './pages/About';
 import ProtectedRoute from './components/ProtectedRoute';
 
 function App() {
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/about" element={<About />} />
           <Route
             path="/diagnosis"
             element={

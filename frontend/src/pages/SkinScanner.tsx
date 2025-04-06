@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import TopBar from '../components/TopBar';
+import ImageCapture from '../components/ImageCapture';
 
 interface ScanResult {
   diagnosis: string;
@@ -13,13 +14,10 @@ const SkinScanner = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [result, setResult] = useState<ScanResult | null>(null);
 
-  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (file) {
-      setSelectedImage(file);
-      setPreviewUrl(URL.createObjectURL(file));
-      setResult(null);
-    }
+  const handleImageCapture = (file: File, preview: string) => {
+    setSelectedImage(file);
+    setPreviewUrl(preview);
+    setResult(null);
   };
 
   const handleScan = async () => {
@@ -66,19 +64,10 @@ const SkinScanner = () => {
                 </div>
               )}
 
-              <button
-                className="w-full max-w-md px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium shadow-card hover:shadow-hover"
-                onClick={() => document.getElementById('file-upload')?.click()}
-              >
-                Upload Skin Image
-                <input
-                  id="file-upload"
-                  type="file"
-                  className="hidden"
-                  accept="image/*"
-                  onChange={handleImageUpload}
-                />
-              </button>
+              <ImageCapture
+                onImageCapture={handleImageCapture}
+                buttonText="Upload Image"
+              />
 
               {selectedImage && (
                 <button
@@ -98,7 +87,7 @@ const SkinScanner = () => {
               )}
 
               {result && (
-                <div className="w-full max-w-md card p-6">
+                <div className="w-full max-w-md bg-white rounded-2xl shadow-card p-6">
                   <h2 className="text-2xl font-display text-primary-900 mb-4">
                     Analysis Results
                   </h2>
