@@ -4,6 +4,7 @@ const About = () => {
   return (
     <div className="min-h-screen bg-white">
       <TopBar />
+
       
     </div>
   );
