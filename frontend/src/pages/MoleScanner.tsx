@@ -16,7 +16,7 @@ const PhotoGuidelines = () => (
   <div className="bg-white rounded-2xl shadow-card p-6 mb-6">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
       <div className="space-y-2">
-        <h3 className="text-2xl font-bold text-primary-900">Bad Example</h3>
+        <h3 className="text-3xl font-bold text-primary-900">Bad Example</h3>
         <img
           src="/assets/images/bad_mole_example.png"
           alt="Bad mole photo example"
@@ -24,7 +24,7 @@ const PhotoGuidelines = () => (
         />
       </div>
       <div className="space-y-2">
-        <h3 className="text-2xl font-bold text-primary-900">Good Example</h3>
+        <h3 className="text-3xl font-bold text-primary-900">Good Example</h3>
         <img
           src="/assets/images/mole_example.png"
           alt="Good mole photo example"
@@ -35,7 +35,7 @@ const PhotoGuidelines = () => (
     
     <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-12">
       <div className="space-y-4">
-        <h3 className="text-2xl font-bold text-primary-900 mb-2">Photo Guide</h3>
+        <h3 className="text-3xl font-bold text-primary-900 mb-2">Photo Guide</h3>
         <div className="space-y-2">
           <div className="p-3 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
             Center the mole in frame
@@ -52,7 +52,7 @@ const PhotoGuidelines = () => (
         </div>
       </div>
       <div className="space-y-4">
-        <h3 className="text-2xl font-bold text-primary-900 mb-2">Crop Guide</h3>
+        <h3 className="text-3xl font-bold text-primary-900 mb-2">Crop Guide</h3>
         <div className="space-y-2">
           <div className="p-3 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
             Include some healthy skin

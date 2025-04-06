@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface ScanResult {
   diagnosis: string;
@@ -70,8 +70,15 @@ const getRiskInfo = (score: number) => {
 
 const MoleResults: React.FC<MoleResultsProps> = ({ result, onBack, imageUrl }) => {
   const riskInfo = getRiskInfo(result.positive);
-  const confidence = Math.abs(.5 - result.positive) * 2;
-  const confidencePercentage = (confidence * 100).toFixed(1);
+  const confidencePercentage = (result.positive * 100).toFixed(1);
+  const [barWidth, setBarWidth] = useState(0);
+
+  useEffect(() => {
+    // Trigger animation after component mount
+    setTimeout(() => {
+      setBarWidth(Number(confidencePercentage));
+    }, 100);
+  }, [confidencePercentage]);
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -96,13 +103,13 @@ const MoleResults: React.FC<MoleResultsProps> = ({ result, onBack, imageUrl }) =
           <h4 className="text-xl font-bold text-gray-800 mb-3">Confidence Level</h4>
           <div className="space-y-3">
             <div className="flex items-center">
-              <div className="w-full bg-gray-100 rounded-full h-3">
-                <div 
-                  className={`h-3 rounded-full ${riskInfo.color.replace('text', 'bg')} transition-all duration-500`}
-                  style={{ width: `${confidencePercentage}%` }}
-                ></div>
-              </div>
-              <span className="ml-4 text-xl font-semibold text-gray-700">{confidencePercentage}%</span>
+              <span className="text-2xl font-semibold text-gray-700">{confidencePercentage}%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-4">
+              <div 
+                className="h-full rounded-full bg-blue-500 transition-all duration-1000 ease-out"
+                style={{ width: `${barWidth}%` }}
+              />
             </div>
           </div>
         </div>
@@ -113,28 +120,28 @@ const MoleResults: React.FC<MoleResultsProps> = ({ result, onBack, imageUrl }) =
         <div className="space-y-8">
           {/* What This Means */}
           <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
-            <h4 className="text-2xl font-bold text-gray-800 mb-4">What This Means</h4>
+            <h4 className="text-3xl font-bold text-gray-800 mb-4">What This Means</h4>
             <p className="text-gray-700 leading-relaxed text-lg">{riskInfo.meaning}</p>
           </div>
 
           {/* Reliability */}
           <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
-            <h4 className="text-2xl font-bold text-gray-800 mb-4">Reliability</h4>
+            <h4 className="text-3xl font-bold text-gray-800 mb-4">Reliability</h4>
             <p className="text-gray-700 leading-relaxed text-lg">{riskInfo.reliability}</p>
           </div>
 
           {/* Factors */}
           <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
-            <h4 className="text-2xl font-bold text-gray-800 mb-4">Potential Factors Affecting Accuracy</h4>
+            <h4 className="text-3xl font-bold text-gray-800 mb-4">Potential Factors Affecting Accuracy</h4>
             <p className="text-gray-700 leading-relaxed text-lg">{riskInfo.factors}</p>
           </div>
 
           {/* Recommendations */}
           <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
-            <h4 className="text-2xl font-bold text-gray-800 mb-4">Recommended Action</h4>
+            <h4 className="text-3xl font-bold text-gray-800 mb-4">Recommended Action</h4>
             <p className="text-gray-700 leading-relaxed text-lg mb-4">{riskInfo.action}</p>
             
-            <h4 className="text-2xl font-bold text-gray-800 mb-4">Additional Recommendations</h4>
+            <h4 className="text-3xl font-bold text-gray-800 mb-4">Additional Recommendations</h4>
             <ul className="space-y-3">
               {result.recommendations.map((recommendation, index) => (
                 <li key={index} className="flex items-start gap-3">
@@ -147,16 +154,68 @@ const MoleResults: React.FC<MoleResultsProps> = ({ result, onBack, imageUrl }) =
         </div>
 
         {/* Right Column */}
-        <div className="space-y-8">
+        <div className="flex flex-col">
           {/* Photo Section */}
-          <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Your Photo</h3>
+          <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 mb-8">
+            <h3 className="text-3xl font-bold text-gray-800 mb-4">Your Photo</h3>
             <div className="flex justify-center">
               <img 
                 src={imageUrl} 
                 alt="Uploaded mole" 
                 className="max-w-full h-auto rounded-xl shadow-md"
               />
+            </div>
+          </div>
+
+          {/* ABCDE Guide Section */}
+          <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 mt-auto">
+            <h3 className="text-3xl font-bold text-gray-800 mb-4">ABCDE Rule Guide</h3>
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <div className="w-16 h-16 flex-shrink-0">
+                  <img src="/assets/svg/A.svg" alt="Asymmetry" className="w-full h-full" />
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-800">A - Asymmetry</h4>
+                  <p className="text-gray-600">One half of the mole does not match the other half in shape, color, or texture.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-16 h-16 flex-shrink-0">
+                  <img src="/assets/svg/B.svg" alt="Border" className="w-full h-full" />
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-800">B - Border</h4>
+                  <p className="text-gray-600">The edges are irregular, ragged, notched, or blurred.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-16 h-16 flex-shrink-0">
+                  <img src="/assets/svg/C.svg" alt="Color" className="w-full h-full" />
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-800">C - Color</h4>
+                  <p className="text-gray-600">The color is not uniform and may include shades of brown, black, red, white, or blue.</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-16 h-16 flex-shrink-0">
+                  <img src="/assets/svg/D.svg" alt="Diameter" className="w-full h-full" />
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-800">D - Diameter</h4>
+                  <p className="text-gray-600">The spot is larger than 6mm across (about the size of a pencil eraser).</p>
+                </div>
+              </div>
+              <div className="flex items-start gap-4">
+                <div className="w-16 h-16 flex-shrink-0">
+                  <img src="/assets/svg/E.svg" alt="Evolving" className="w-full h-full" />
+                </div>
+                <div>
+                  <h4 className="text-lg font-semibold text-gray-800">E - Evolving</h4>
+                  <p className="text-gray-600">The mole is changing in size, shape, color, or has new symptoms like bleeding or itching.</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -166,7 +225,7 @@ const MoleResults: React.FC<MoleResultsProps> = ({ result, onBack, imageUrl }) =
       <div className="mt-8 bg-gray-50 p-6 rounded-2xl shadow-lg border border-gray-200">
         <div className="flex items-center gap-3 mb-4">
           <span className="text-3xl">⚖️</span>
-          <h3 className="text-2xl font-bold text-gray-800">Important Information</h3>
+          <h3 className="text-3xl font-bold text-gray-800">Important Information</h3>
         </div>
         <p className="text-gray-700 leading-relaxed text-lg">
           This assessment tool prioritizes comprehensive detection and is designed to be cautious. 

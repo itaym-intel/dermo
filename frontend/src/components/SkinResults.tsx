@@ -49,9 +49,16 @@ const SkinResults: React.FC<SkinResultsProps> = ({ result, onBack }) => {
 
   const getSeverityColor = (severity: string) => {
     const severityLower = severity.toLowerCase();
-    if (severityLower.includes('mild')) return 'text-blue-600 bg-blue-50 border-blue-200';
-    if (severityLower.includes('moderate')) return 'text-yellow-600 bg-yellow-50 border-yellow-200';
-    if (severityLower.includes('severe')) return 'text-red-600 bg-red-50 border-red-200';
+    console.log(severityLower);
+    for (const word of ['mild', 'low']) {
+      if (severityLower.includes(word)) return 'text-blue-600 bg-blue-50 border-blue-200';
+    }
+    for (const word of ['moderate', 'medium']) {
+      if (severityLower.includes(word)) return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+    }
+    for (const word of ['high', 'severe']) {
+      if (severityLower.includes(word)) return 'text-red-600 bg-red-50 border-red-200';
+    }
     return 'text-gray-600 bg-gray-50 border-gray-200';
   };
 
@@ -62,9 +69,7 @@ const SkinResults: React.FC<SkinResultsProps> = ({ result, onBack }) => {
     <div className="max-w-6xl mx-auto">
       <div className="text-center mb-8">
         <h2 className="text-4xl font-bold mb-2">
-          <span className={`px-6 py-2 ${severityStyles.split(' ')[1]} ${severityStyles.split(' ')[2]} rounded-lg`}>
             Analysis Results
-          </span>
         </h2>
         <p className="text-gray-600">Your skin condition has been analyzed using our AI-powered system</p>
       </div>
@@ -83,7 +88,7 @@ const SkinResults: React.FC<SkinResultsProps> = ({ result, onBack }) => {
 
         {/* Confidence Level */}
         <div className="bg-white p-4 rounded-xl shadow-sm">
-          <h4 className="text-xl font-bold text-gray-800 mb-3">Confidence Level</h4>
+          <h4 className="text-3xl font-bold text-gray-800 mb-3">Confidence Level</h4>
           <div className="flex items-center gap-4">
             <div className="relative flex-1 h-3 bg-gray-100 rounded-full">
               <div 
@@ -102,25 +107,25 @@ const SkinResults: React.FC<SkinResultsProps> = ({ result, onBack }) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
         {/* Clinical Information */}
         <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 h-full">
-          <h4 className="text-2xl font-bold text-gray-800 mb-4">Clinical Information</h4>
+          <h4 className="text-3xl font-bold text-gray-800 mb-4">Clinical Information</h4>
           <p className="text-gray-700 leading-relaxed text-lg">{result.advice.Info || 'Not available'}</p>
         </div>
 
         {/* Self-Care Recommendations */}
         <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 h-full">
-          <h4 className="text-2xl font-bold text-gray-800 mb-4">Self-Care Recommendations</h4>
+          <h4 className="text-3xl font-bold text-gray-800 mb-4">Self-Care Recommendations</h4>
           <p className="text-gray-700 leading-relaxed text-lg">{result.advice["At-Home Treatment"] || 'Not available'}</p>
         </div>
 
         {/* Severity Assessment */}
         <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 h-full">
-          <h4 className="text-2xl font-bold text-gray-800 mb-4">Severity Assessment</h4>
+          <h4 className="text-3xl font-bold text-gray-800 mb-4">Severity Assessment</h4>
           <p className="text-gray-700 leading-relaxed text-lg">{result.advice.Severity || 'Not available'}</p>
         </div>
 
         {/* Professional Treatment Options */}
         <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200 h-full">
-          <h4 className="text-2xl font-bold text-gray-800 mb-4">Professional Treatment Options</h4>
+          <h4 className="text-3xl font-bold text-gray-800 mb-4">Professional Treatment Options</h4>
           <p className="text-gray-700 leading-relaxed text-lg">{result.advice["Clinical Treatment"] || 'Not available'}</p>
         </div>
       </div>
@@ -129,10 +134,13 @@ const SkinResults: React.FC<SkinResultsProps> = ({ result, onBack }) => {
       <div className="mt-8 bg-gray-50 p-6 rounded-2xl shadow-lg border border-gray-200">
         <div className="flex items-center gap-3 mb-4">
           <span className="text-3xl">⚖️</span>
-          <h3 className="text-2xl font-bold text-gray-800">Important Information</h3>
+          <h3 className="text-3xl font-bold text-gray-800">Important Information</h3>
         </div>
         <p className="text-gray-700 leading-relaxed text-lg">
-          This analysis is for informational purposes only. Please consult a healthcare professional for proper diagnosis and treatment.
+        This assessment tool prioritizes comprehensive detection and is designed to be cautious. 
+          Results are most reliable in the lowest and highest ranges. While this system can help 
+          identify potential concerns, it is not a diagnostic tool. A qualified healthcare professional 
+          should always make the final determination regarding any skin lesion.
         </p>
       </div>
 
