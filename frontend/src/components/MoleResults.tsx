@@ -70,7 +70,7 @@ const getRiskInfo = (score: number) => {
 
 const MoleResults: React.FC<MoleResultsProps> = ({ result, onBack, imageUrl }) => {
   const riskInfo = getRiskInfo(result.positive);
-  const confidencePercentage = (result.positive * 100).toFixed(1);
+  const confidencePercentage = (Math.abs(result.positive - 0.5) * 2).toFixed(1);
   const [barWidth, setBarWidth] = useState(0);
 
   useEffect(() => {
