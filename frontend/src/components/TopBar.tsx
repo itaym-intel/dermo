@@ -1,8 +1,27 @@
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
+import { Avatar, Menu, MenuItem, IconButton } from '@mui/material';
 
 const TopBar = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleMenu = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleSignOut = async () => {
+    await signOut();
+    handleClose();
+    navigate('/');
+  };
 
   return (
     <nav className="bg-white fixed w-full top-0 z-50 transition-all duration-300">
@@ -18,9 +37,39 @@ const TopBar = () => {
             <Link to="/" className="text-primary-700 hover:text-blue-600 transition-colors font-medium">Home</Link>
             <Link to="/diagnosis" className="text-primary-700 hover:text-blue-600 transition-colors font-medium">Diagnosis</Link>
             <Link to="/about" className="text-primary-700 hover:text-blue-600 transition-colors font-medium">About</Link>
-            <button className="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium">
-              Get Started
-            </button>
+            {user ? (
+              <>
+                <IconButton
+                  onClick={handleMenu}
+                  size="small"
+                  sx={{ ml: 2 }}
+                  aria-controls={anchorEl ? 'account-menu' : undefined}
+                  aria-haspopup="true"
+                  aria-expanded={anchorEl ? 'true' : undefined}
+                >
+                  <Avatar 
+                    src={user.photoURL || undefined} 
+                    alt={user.displayName || 'User'} 
+                    sx={{ width: 32, height: 32 }}
+                  />
+                </IconButton>
+                <Menu
+                  anchorEl={anchorEl}
+                  id="account-menu"
+                  open={Boolean(anchorEl)}
+                  onClose={handleClose}
+                  onClick={handleClose}
+                  transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+                  anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+                >
+                  <MenuItem onClick={handleSignOut}>Sign Out</MenuItem>
+                </Menu>
+              </>
+            ) : (
+              <Link to="/login" className="px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium">
+                Sign In
+              </Link>
+            )}
           </div>
 
           <button 
@@ -39,9 +88,18 @@ const TopBar = () => {
             <Link to="/" className="block text-primary-700 hover:text-blue-600 transition-colors font-medium">Home</Link>
             <Link to="/diagnosis" className="block text-primary-700 hover:text-blue-600 transition-colors font-medium">Diagnosis</Link>
             <Link to="/about" className="block text-primary-700 hover:text-blue-600 transition-colors font-medium">About</Link>
-            <button className="w-full px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium">
-              Get Started
-            </button>
+            {user ? (
+              <button 
+                onClick={handleSignOut}
+                className="w-full px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium"
+              >
+                Sign Out
+              </button>
+            ) : (
+              <Link to="/login" className="block w-full px-6 py-2 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium text-center">
+                Sign In
+              </Link>
+            )}
           </div>
         )}
       </div>
