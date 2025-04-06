@@ -34,8 +34,9 @@ const TopBar = () => {
           </Link>
           
           <div className="hidden md:flex items-center space-x-10">
-            <Link to="/" className="text-primary-700 hover:text-blue-600 transition-colors font-medium">Home</Link>
-            <Link to="/diagnosis" className="text-primary-700 hover:text-blue-600 transition-colors font-medium">Diagnosis</Link>
+            <Link to="/diagnosis" className="text-primary-700 hover:text-blue-600 transition-colors font-medium">Home</Link>
+            <Link to="/mole-scanner" className="text-primary-700 hover:text-blue-600 transition-colors font-medium">Mole Scanner</Link>
+            <Link to="/skin-scanner" className="text-primary-700 hover:text-blue-600 transition-colors font-medium">Skin Scanner</Link>
             <Link to="/about" className="text-primary-700 hover:text-blue-600 transition-colors font-medium">About</Link>
             {user ? (
               <>
@@ -73,7 +74,7 @@ const TopBar = () => {
           </div>
 
           <button 
-            className="md:hidden text-primary-700"
+            className="md:hidden bg-transparent border-none hover:border-none"
             onClick={() => setIsMenuOpen(!isMenuOpen)}
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
