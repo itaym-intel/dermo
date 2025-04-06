@@ -14,17 +14,17 @@ const PhotoGuidelines = () => (
   <div className="bg-white rounded-2xl shadow-card p-6 mb-6">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div className="space-y-2">
-        <h3 className="text-lg font-medium text-primary-700">Good Example</h3>
+        <h3 className="text-2xl font-bold text-primary-900">Good Example</h3>
         <img
-          src="/assets/images/mole_example.png"
+          src="/assets/images/mole_example.jpg"
           alt="Good mole photo example"
           className="w-full h-auto rounded-lg shadow-sm"
         />
       </div>
       <div className="space-y-2">
-        <h3 className="text-lg font-medium text-primary-700">Bad Example</h3>
+        <h3 className="text-2xl font-bold text-primary-900">Bad Example</h3>
         <img
-          src="/assets/images/bad_mole_example.png"
+          src="/assets/images/bad_mole_example.jpg"
           alt="Bad mole photo example"
           className="w-full h-auto rounded-lg shadow-sm"
         />
@@ -33,7 +33,7 @@ const PhotoGuidelines = () => (
     
     <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
       <div className="bg-blue-50 p-4 rounded-lg">
-        <h3 className="text-lg font-medium text-primary-700 mb-2">Photo Tips</h3>
+        <h3 className="text-2xl font-bold text-primary-900 mb-2">📸 Photo Guide</h3>
         <ul className="list-disc list-inside space-y-1 text-primary-800">
           <li>Center the mole in frame</li>
           <li>Use good lighting</li>
@@ -42,7 +42,7 @@ const PhotoGuidelines = () => (
         </ul>
       </div>
       <div className="bg-blue-50 p-4 rounded-lg">
-        <h3 className="text-lg font-medium text-primary-700 mb-2">Crop Tips</h3>
+        <h3 className="text-2xl font-bold text-primary-900 mb-2">✂️ Crop Guide</h3>
         <ul className="list-disc list-inside space-y-1 text-primary-800">
           <li>Square crop works best</li>
           <li>Include some healthy skin</li>
