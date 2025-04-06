@@ -1,6 +1,5 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
-import TopBar from './components/TopBar';
 import LandingPage from './pages/LandingPage';
 import DiagnosisPage from './pages/DiagnosisPage';
 import SkinScanner from './pages/SkinScanner';
@@ -12,7 +11,6 @@ function App() {
   return (
     <AuthProvider>
       <Router>
-        <TopBar />
         <Routes>
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
