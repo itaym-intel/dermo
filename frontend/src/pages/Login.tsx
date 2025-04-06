@@ -1,8 +1,6 @@
 import { useAuth } from '../contexts/AuthContext';
-import { Button, Container, TextField, Box, Paper, Divider } from '@mui/material';
+import { Button, Container, TextField, Box, Divider } from '@mui/material';
 import GoogleIcon from '@mui/icons-material/Google';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import AppleIcon from '@mui/icons-material/Apple';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 
