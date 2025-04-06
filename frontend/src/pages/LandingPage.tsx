@@ -1,19 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import TopBar from '../components/TopBar';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 
 const LandingPage = () => {
   const navigate = useNavigate();
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [isHeroVisible, setIsHeroVisible] = useState(true);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY;
       setScrollPosition(currentScroll);
-      
-      // Remove the hero visibility toggle since we want to keep it visible
-      setIsHeroVisible(true);
     };
 
     window.addEventListener('scroll', handleScroll);
@@ -35,8 +31,8 @@ const LandingPage = () => {
 
   // Calculate zoom scale based on scroll position
   const getZoomScale = () => {
-    const maxScroll = 1000;
-    const minScale = 1;
+    const maxScroll = 16000;
+    const minScale = 0.5;
     const maxScale = 1.2; // Reduced from 1.5 to 1.2 for less initial zoom
     const scale = Math.max(minScale, maxScale - (scrollPosition / maxScroll));
     return scale;
@@ -58,9 +54,12 @@ const LandingPage = () => {
     return Math.min(10, (scrollPosition - blurStart) / (maxScroll - blurStart) * 10);
   };
 
+  const handleLearnMoreClick = () => {
+    contentRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
     <div className="min-h-screen bg-white">
-      <TopBar />
       <div 
         className="fixed inset-0 bg-white"
         style={{
@@ -69,10 +68,10 @@ const LandingPage = () => {
         }}
       >
         <div 
-          className="absolute inset-0 transition-all duration-300"
+          className="absolute inset-0 transition-all duration-500"
           style={{
             transform: `scale(${getZoomScale()})`,
-            transformOrigin: 'center 70%', // Changed from center center to center 70% to position lower
+            transformOrigin: 'center 70%',
             filter: `blur(${getBlurAmount()}px)`,
           }}
         >
@@ -86,7 +85,7 @@ const LandingPage = () => {
           className="absolute inset-0 flex items-center justify-center"
           style={{
             opacity: 1 - (scrollPosition / 800),
-            transition: 'opacity 0.3s ease-out',
+            transition: 'opacity 0.5s ease-out',
           }}
         >
           <div className="text-center text-white max-w-2xl px-6">
@@ -107,7 +106,10 @@ const LandingPage = () => {
               >
                 Start Diagnosis
               </button>
-              <button className="px-8 py-4 bg-white text-blue-600 border-2 border-blue-600 rounded-full hover:bg-blue-50 transition-colors font-medium text-lg">
+              <button 
+                onClick={handleLearnMoreClick}
+                className="px-8 py-4 bg-white text-blue-600 border-2 border-blue-600 rounded-full hover:bg-blue-50 transition-colors font-medium text-lg"
+              >
                 Learn More
               </button>
             </div>
@@ -116,6 +118,7 @@ const LandingPage = () => {
       </div>
 
       <div 
+        ref={contentRef}
         className="relative z-20"
         style={{
           marginTop: '100vh',
@@ -173,7 +176,7 @@ const LandingPage = () => {
             </div>
           </div>
 
-          <div className="text-center">
+          <div className="text-center mb-20">
             <h2 className="text-3xl md:text-4xl font-display text-primary-900 mb-6">
               Why Choose Dermo?
             </h2>
@@ -196,12 +199,75 @@ const LandingPage = () => {
               </div>
             </div>
             <button 
-              onClick={() => navigate('/diagnosis')}
+              onClick={() => navigate('/login')}
               className="px-12 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium text-lg shadow-card hover:shadow-hover"
             >
               Get Started Now
             </button>
           </div>
+
+          <div className="text-center mb-20">
+            <h2 className="text-3xl md:text-4xl font-display text-primary-900 mb-6">
+              What Our Users Say
+            </h2>
+            <div className="grid md:grid-cols-3 gap-8">
+              <div className="card p-6">
+                <div className="text-4xl mb-4">⭐️</div>
+                <h3 className="text-xl font-display text-primary-900 mb-2">Sarah M.</h3>
+                <p className="text-primary-700">"The AI analysis was spot-on! It helped me catch a concerning mole early."</p>
+              </div>
+              <div className="card p-6">
+                <div className="text-4xl mb-4">⭐️</div>
+                <h3 className="text-xl font-display text-primary-900 mb-2">James L.</h3>
+                <p className="text-primary-700">"Incredibly easy to use and the results were very detailed. Highly recommend!"</p>
+              </div>
+              <div className="card p-6">
+                <div className="text-4xl mb-4">⭐️</div>
+                <h3 className="text-xl font-display text-primary-900 mb-2">Emma R.</h3>
+                <p className="text-primary-700">"Peace of mind at my fingertips. The platform is a game-changer for skin health."</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="text-center">
+            <h2 className="text-3xl md:text-4xl font-display text-primary-900 mb-6">
+              Simple Pricing
+            </h2>
+            <div className="grid md:grid-cols-2 gap-8 mb-12">
+              <div className="card p-6">
+                <h3 className="text-xl font-display text-primary-900 mb-2">Basic Plan</h3>
+                <p className="text-3xl font-bold text-blue-600 mb-4">$FREE.99/mo</p>
+                <ul className="text-primary-700 mb-6">
+                  <li>✓ 5 scans per month</li>
+                  <li>✓ Basic analysis</li>
+                  <li>✓ Email support</li>
+                </ul>
+                <button className="w-full px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium">
+                  Choose Plan
+                </button>
+              </div>
+              <div className="card p-6">
+                <h3 className="text-xl font-display text-primary-900 mb-2">Premium Plan</h3>
+                <p className="text-3xl font-bold text-blue-600 mb-4">$FREE.99/mo</p>
+                <ul className="text-primary-700 mb-6">
+                  <li>✓ Unlimited scans</li>
+                  <li>✓ Advanced analysis</li>
+                  <li>✓ Priority support</li>
+                  <li>✓ Expert consultation</li>
+                </ul>
+                <button className="w-full px-6 py-3 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium">
+                  Choose Plan
+                </button>
+              </div>
+            </div>
+            <button 
+              onClick={() => navigate('/login')}
+              className="px-12 py-4 bg-blue-600 text-white rounded-full hover:bg-blue-700 transition-colors font-medium text-lg shadow-card hover:shadow-hover"
+            >
+              Get Started Now
+            </button>
+          </div>
+
         </div>
       </div>
     </div>
