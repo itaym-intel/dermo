@@ -17,7 +17,7 @@ const MoleResults: React.FC<MoleResultsProps> = ({ result, onBack }) => {
   const confidencePercentage = (confidence * 100).toFixed(1);
 
   return (
-    <div className="bg-white rounded-2xl shadow-card p-6 max-w-2xl mx-auto">
+    <div>
       <h2 className="text-3xl font-bold text-primary-900 mb-6">Analysis Results</h2>
       
       <div className="space-y-6">

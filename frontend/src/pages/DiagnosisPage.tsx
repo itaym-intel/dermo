@@ -22,6 +22,29 @@ const DiagnosisPage = () => {
 
           {/* Scanner Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-20">
+            <Link to="/mole-scanner" className="group">
+              <div className="relative overflow-hidden rounded-3xl shadow-card hover:shadow-hover transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-50 transform group-hover:scale-105 transition-transform duration-300"></div>
+                <div className="relative p-8">
+                  <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-3xl font-display text-primary-900">Mole Scanner</h2>
+                    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      </svg>
+                    </div>
+                  </div>
+                  <p className="text-primary-700 mb-6">Monitor and analyze your moles for any concerning changes or patterns. Our AI helps track changes over time and provides early detection insights.</p>
+                  <div className="flex items-center text-blue-600 font-medium">
+                    Start Analysis
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                </div>
+              </div>
+            </Link>
+
             <Link to="/skin-scanner" className="group">
               <div className="relative overflow-hidden rounded-3xl shadow-card hover:shadow-hover transition-all duration-300">
                 <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-50 transform group-hover:scale-105 transition-transform duration-300"></div>
@@ -36,29 +59,6 @@ const DiagnosisPage = () => {
                     </div>
                   </div>
                   <p className="text-primary-700 mb-6">Get a comprehensive analysis of your skin condition with our AI technology. Perfect for monitoring overall skin health and identifying potential concerns.</p>
-                  <div className="flex items-center text-blue-600 font-medium">
-                    Start Analysis
-                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
-                      <path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd" />
-                    </svg>
-                  </div>
-                </div>
-              </div>
-            </Link>
-
-            <Link to="/mole-scanner" className="group">
-              <div className="relative overflow-hidden rounded-3xl shadow-card hover:shadow-hover transition-all duration-300">
-                <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-50 transform group-hover:scale-105 transition-transform duration-300"></div>
-                <div className="relative p-8">
-                  <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-3xl font-display text-primary-900">Mole Scanner</h2>
-                    <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-                      <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                    </div>
-                  </div>
-                  <p className="text-primary-700 mb-6">Monitor and analyze your moles for any concerning changes or patterns. Our AI helps track changes over time and provides early detection insights.</p>
                   <div className="flex items-center text-blue-600 font-medium">
                     Start Analysis
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">

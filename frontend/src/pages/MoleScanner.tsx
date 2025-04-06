@@ -4,6 +4,7 @@ import ImageCapture from '../components/ImageCapture';
 import MoleResults from '../components/MoleResults';
 import ReactCrop, { Crop } from 'react-image-crop';
 import 'react-image-crop/dist/ReactCrop.css';
+import { mockPredict } from '../utils/mockApi';
 
 interface ScanResult {
   diagnosis: string;
@@ -17,7 +18,7 @@ const PhotoGuidelines = () => (
       <div className="space-y-2">
         <h3 className="text-2xl font-bold text-primary-900">Good Example</h3>
         <img
-          src="/assets/images/mole_example.jpg"
+          src="/assets/images/mole_example.png"
           alt="Good mole photo example"
           className="w-full h-auto rounded-lg shadow-sm"
         />
@@ -25,7 +26,7 @@ const PhotoGuidelines = () => (
       <div className="space-y-2">
         <h3 className="text-2xl font-bold text-primary-900">Bad Example</h3>
         <img
-          src="/assets/images/bad_mole_example.jpg"
+          src="/assets/images/bad_mole_example.png"
           alt="Bad mole photo example"
           className="w-full h-auto rounded-lg shadow-sm"
         />
@@ -132,15 +133,20 @@ const MoleScanner = () => {
       const blob = await response.blob();
       const file = new File([blob], 'cropped-mole.jpg', { type: 'image/jpeg' });
 
-      const formData = new FormData();
-      formData.append('file', file);
+      let data;
+      if (import.meta.env.DEV) {
+        data = await mockPredict(file);
+      } else {
+        const formData = new FormData();
+        formData.append('file', file);
 
-      const apiResponse = await fetch(`${import.meta.env.VITE_API_URL}/predict`, {
-        method: 'POST',
-        body: formData,
-      });
-
-      const data = await apiResponse.json();
+        const apiResponse = await fetch(`${import.meta.env.VITE_API_URL}/predict`, {
+          method: 'POST',
+          body: formData,
+        });
+        data = await apiResponse.json();
+      }
+      
       setResult(data);
     } catch (error) {
       console.error('Error scanning mole:', error);
