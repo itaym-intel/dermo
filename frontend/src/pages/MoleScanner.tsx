@@ -87,6 +87,7 @@ const MoleScanner = () => {
   const imageRef = useRef<HTMLImageElement>(null);
 
   const handleImageCapture = (file: File, preview: string) => {
+    selectedImage;
     setSelectedImage(file);
     setPreviewUrl(preview);
     setResult(null);
