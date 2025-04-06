@@ -47,9 +47,10 @@ const SkinResults: React.FC<SkinResultsProps> = ({ result, onBack }) => {
     );
   }
 
-  const getSeverityColor = (severity: string) => {
+  const getSeverityColor = (severity: string | undefined) => {
+    if (!severity) return 'text-gray-600 bg-gray-50 border-gray-200';
+    
     const severityLower = severity.toLowerCase();
-    console.log(severityLower);
     for (const word of ['mild', 'low']) {
       if (severityLower.includes(word)) return 'text-blue-600 bg-blue-50 border-blue-200';
     }
@@ -78,8 +79,8 @@ const SkinResults: React.FC<SkinResultsProps> = ({ result, onBack }) => {
       <div className={`p-6 rounded-2xl ${severityStyles.split(' ')[1]} border-2 ${severityStyles.split(' ')[2]} shadow-lg mb-8`}>
         <div className="flex items-center gap-4 mb-6">
           <div className={`text-5xl ${severityStyles.split(' ')[0]}`}>
-            {result.advice.Severity.toLowerCase().includes('mild') ? '🔵' : 
-             result.advice.Severity.toLowerCase().includes('moderate') ? '🟡' : '🔴'}
+            {result.advice.Severity?.toLowerCase().includes('mild') ? '🔵' : 
+             result.advice.Severity?.toLowerCase().includes('moderate') ? '🟡' : '🔴'}
           </div>
           <h3 className={`text-3xl font-bold ${severityStyles.split(' ')[0]}`}>
             {result.prediction || 'Unknown Condition'}
