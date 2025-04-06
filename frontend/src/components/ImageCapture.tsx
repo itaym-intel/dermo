@@ -25,24 +25,12 @@ const ImageCapture = ({ onImageCapture, buttonText }: ImageCaptureProps) => {
   const startCamera = async () => {
     try {
       setError(null);
-      const constraints = {
-        video: {
-          facingMode: 'environment',
-          width: { ideal: 1280 },
-          height: { ideal: 720 }
-        }
-      };
-
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
+      const stream = await navigator.mediaDevices.getUserMedia({ 
+        video: { facingMode: 'environment' } 
+      });
       
       if (videoRef.current) {
         videoRef.current.srcObject = stream;
-        videoRef.current.onloadedmetadata = () => {
-          videoRef.current?.play().catch(err => {
-            console.error('Error playing video:', err);
-            setError('Error starting camera preview');
-          });
-        };
         streamRef.current = stream;
         setShowCamera(true);
       }
@@ -103,7 +91,7 @@ const ImageCapture = ({ onImageCapture, buttonText }: ImageCaptureProps) => {
               autoPlay
               playsInline
               muted
-              className="w-full h-full object-cover"
+              style={{ width: '100%', height: '100%', objectFit: 'cover' }}
             />
           </div>
           {error && (
@@ -138,11 +126,11 @@ const ImageCapture = ({ onImageCapture, buttonText }: ImageCaptureProps) => {
             sx={{
               py: 1.5,
               borderRadius: '8px',
-              backgroundColor: '#2563eb',
+              backgroundColor: '#60a5fa',
               textTransform: 'none',
               fontSize: '1rem',
               '&:hover': {
-                backgroundColor: '#1d4ed8',
+                backgroundColor: '#3b82f6',
               },
             }}
           >

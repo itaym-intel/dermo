@@ -79,10 +79,10 @@ const MoleScanner = () => {
   const [result, setResult] = useState<ScanResult | null>(null);
   const [crop, setCrop] = useState<Crop>({
     unit: '%',
-    width: 90,
-    height: 90,
-    x: 5,
-    y: 5
+    width: 99,
+    height: 99,
+    x: 0.5,
+    y: 0.5
   });
   const [croppedImage, setCroppedImage] = useState<string>('');
   const imageRef = useRef<HTMLImageElement>(null);
@@ -96,27 +96,44 @@ const MoleScanner = () => {
   };
 
   const applyCrop = async () => {
-    if (!imageRef.current || !crop.width || !crop.height) return;
+    if (!imageRef.current) return;
+
+    // Check if crop values are at their default (99% width/height, 0.5 x/y)
+    const isDefaultCrop = crop.width === 99 && crop.height === 99 && 
+                         crop.x === 0.5 && crop.y === 0.5;
+
+    if (isDefaultCrop) {
+      // If no crop adjustments were made, use the original image
+      setCroppedImage(previewUrl);
+      return;
+    }
 
     const canvas = document.createElement('canvas');
     const scaleX = imageRef.current.naturalWidth / imageRef.current.width;
     const scaleY = imageRef.current.naturalHeight / imageRef.current.height;
-    canvas.width = crop.width;
-    canvas.height = crop.height;
+
+    // Use the current crop dimensions or default to 90%
+    const cropWidth = crop.width;
+    const cropHeight = crop.height;
+    const cropX = crop.x;
+    const cropY = crop.y;
+
+    canvas.width = cropWidth;
+    canvas.height = cropHeight;
     const ctx = canvas.getContext('2d');
 
     if (!ctx) return;
 
     ctx.drawImage(
       imageRef.current,
-      crop.x * scaleX,
-      crop.y * scaleY,
-      crop.width * scaleX,
-      crop.height * scaleY,
+      cropX * scaleX,
+      cropY * scaleY,
+      cropWidth * scaleX,
+      cropHeight * scaleY,
       0,
       0,
-      crop.width,
-      crop.height
+      cropWidth,
+      cropHeight
     );
 
     const croppedImageUrl = canvas.toDataURL('image/jpeg');
