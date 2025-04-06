@@ -81,18 +81,18 @@ const PhotoGuidelines = () => (
 const SkinResults = ({ result, onBack }: { result: SkinResult; onBack: () => void }) => {
   if (!result || !result.advice) {
     return (
-      <div className="bg-white rounded-2xl shadow-card p-6">
-        <div className="space-y-6">
+      <div className="bg-white rounded-lg shadow-md p-6">
+        <div className="space-y-4">
           <div className="flex justify-between items-center">
-            <h2 className="text-3xl font-bold text-primary-900">Analysis Results</h2>
+            <h2 className="text-2xl font-medium text-gray-900">Analysis Results</h2>
             <button
               onClick={onBack}
-              className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors"
+              className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
             >
               Back
             </button>
           </div>
-          <div className="text-red-500 text-center">
+          <div className="text-red-600 text-center">
             Error: No results available. Please try again.
           </div>
         </div>
@@ -101,46 +101,58 @@ const SkinResults = ({ result, onBack }: { result: SkinResult; onBack: () => voi
   }
 
   return (
-    <div className="bg-white rounded-2xl shadow-card p-6">
+    <div className="bg-white rounded-lg shadow-md p-6">
       <div className="space-y-6">
         <div className="flex justify-between items-center">
-          <h2 className="text-3xl font-bold text-primary-900">Analysis Results</h2>
+          <h2 className="text-2xl font-medium text-gray-900">Analysis Results</h2>
           <button
             onClick={onBack}
-            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-full hover:bg-gray-200 transition-colors"
+            className="px-4 py-2 bg-gray-100 text-gray-700 rounded-md hover:bg-gray-200 transition-colors"
           >
             Back
           </button>
         </div>
 
-        <div className="space-y-4">
-          <div className="p-4 bg-yellow-50 rounded-lg">
-            <h3 className="text-xl font-semibold text-yellow-700 mb-2">Prediction</h3>
-            <p className="text-yellow-600 font-medium">{result.prediction || 'Unknown'}</p>
-            <p className="text-yellow-600 mt-1">
-              Confidence: {result.confidence ? (result.confidence * 100).toFixed(1) : '0'}%
-            </p>
+        {/* Main Prediction Card */}
+        <div className="border-2 border-yellow-500 rounded-lg p-6">
+          <div className="text-center space-y-3">
+            <h3 className="text-lg font-medium text-gray-700">Prediction</h3>
+            <div className="text-3xl font-semibold text-gray-900">
+              {result.prediction || 'Unknown'}
+            </div>
+            <div className="text-lg text-gray-600">
+              Confidence Level: {result.confidence ? (result.confidence * 100).toFixed(1) : '0'}%
+            </div>
           </div>
+        </div>
 
-          <div className="p-4 bg-red-50 rounded-lg">
-            <h3 className="text-xl font-semibold text-red-700 mb-2">Severity</h3>
-            <p className="text-red-600">{result.advice.Severity || 'Not available'}</p>
-          </div>
+        {/* Severity Indicator */}
+        <div className="border-2 border-red-500 rounded-lg p-4">
+          <h3 className="text-lg font-medium text-gray-900 mb-1">Severity Assessment</h3>
+          <p className="text-gray-700">{result.advice.Severity || 'Not available'}</p>
+        </div>
 
-          <div className="p-4 bg-blue-50 rounded-lg">
-            <h3 className="text-xl font-semibold text-blue-700 mb-2">Information</h3>
+        {/* Additional Information */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="border-2 border-blue-500 rounded-lg p-4">
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Clinical Information</h3>
             <p className="text-gray-700">{result.advice.Info || 'Not available'}</p>
           </div>
 
-          <div className="p-4 bg-green-50 rounded-lg">
-            <h3 className="text-xl font-semibold text-green-700 mb-2">At-Home Treatment</h3>
+          <div className="border-2 border-green-500 rounded-lg p-4">
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Self-Care Recommendations</h3>
             <p className="text-gray-700">{result.advice["At-Home Treatment"] || 'Not available'}</p>
           </div>
 
-          <div className="p-4 bg-purple-50 rounded-lg">
-            <h3 className="text-xl font-semibold text-purple-700 mb-2">Clinical Treatment</h3>
+          <div className="border-2 border-purple-500 rounded-lg p-4 md:col-span-2">
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Professional Treatment Options</h3>
             <p className="text-gray-700">{result.advice["Clinical Treatment"] || 'Not available'}</p>
           </div>
+        </div>
+
+        {/* Disclaimer */}
+        <div className="text-sm text-gray-500 text-center mt-4">
+          This analysis is for informational purposes only. Please consult a healthcare professional for proper diagnosis and treatment.
         </div>
       </div>
     </div>

@@ -191,7 +191,11 @@ const MoleScanner = () => {
           </h1>
           
           {result ? (
-            <MoleResults result={result} onBack={handleBack} />
+            <MoleResults 
+              result={result} 
+              onBack={handleBack} 
+              imageUrl={croppedImage} 
+            />
           ) : (
             <>
               <PhotoGuidelines />
