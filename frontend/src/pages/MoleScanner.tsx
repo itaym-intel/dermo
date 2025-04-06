@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import TopBar from '../components/TopBar';
 import ImageCapture from '../components/ImageCapture';
 import MoleResults from '../components/MoleResults';
@@ -86,6 +86,13 @@ const MoleScanner = () => {
   });
   const [croppedImage, setCroppedImage] = useState<string>('');
   const imageRef = useRef<HTMLImageElement>(null);
+
+  // Add useEffect to handle scroll reset
+  useEffect(() => {
+    if (result) {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  }, [result]);
 
   const handleImageCapture = (file: File, preview: string) => {
     selectedImage;

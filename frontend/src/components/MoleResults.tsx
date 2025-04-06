@@ -80,67 +80,36 @@ const MoleResults: React.FC<MoleResultsProps> = ({ result, onBack, imageUrl }) =
         <p className="text-gray-600">Your mole has been analyzed using our AI-powered system</p>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-        {/* Left Column */}
-        <div className="space-y-8">
-          {/* Photo Section */}
-          <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
-            <h3 className="text-2xl font-bold text-gray-800 mb-4">Your Photo</h3>
-            <div className="flex justify-center">
-              <img 
-                src={imageUrl} 
-                alt="Uploaded mole" 
-                className="max-w-full h-auto rounded-xl shadow-md"
-              />
-            </div>
+      {/* Risk Level Section - Spans both columns */}
+      <div className={`p-6 rounded-2xl ${riskInfo.bgColor} border-2 ${riskInfo.borderColor} shadow-lg mb-8`}>
+        <div className="flex items-center gap-4 mb-6">
+          <div className={`text-5xl ${riskInfo.color}`}>
+            {riskInfo.title.split(' ')[0]}
           </div>
-
-          {/* Risk Level Section */}
-          <div className={`p-6 rounded-2xl ${riskInfo.bgColor} border-2 ${riskInfo.borderColor} shadow-lg`}>
-            <div className="flex items-center gap-4 mb-6">
-              <div className={`text-5xl ${riskInfo.color}`}>
-                {riskInfo.title.split(' ')[0]}
-              </div>
-              <h3 className={`text-3xl font-bold ${riskInfo.color}`}>
-                {riskInfo.title.split(' ').slice(1).join(' ')}
-              </h3>
-            </div>
-
-            {/* Confidence Level */}
-            <div className="bg-white p-4 rounded-xl shadow-sm">
-              <h4 className="text-xl font-bold text-gray-800 mb-3">Confidence Level</h4>
-              <div className="space-y-3">
-                <div className="flex items-center">
-                  <div className="w-full bg-gray-100 rounded-full h-3">
-                    <div 
-                      className={`h-3 rounded-full ${riskInfo.color.replace('text', 'bg')} transition-all duration-500`}
-                      style={{ width: `${confidencePercentage}%` }}
-                    ></div>
-                  </div>
-                  <span className="ml-4 text-xl font-semibold text-gray-700">{confidencePercentage}%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Action Buttons */}
-          <div className="flex justify-center gap-4">
-            <button
-              onClick={onBack}
-              className="px-8 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium shadow-sm text-lg"
-            >
-              Back to Scanner
-            </button>
-            <button
-              className="px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium shadow-sm text-lg"
-              onClick={() => window.print()}
-            >
-              Print Results
-            </button>
-          </div>
+          <h3 className={`text-3xl font-bold ${riskInfo.color}`}>
+            {riskInfo.title.split(' ').slice(1).join(' ')}
+          </h3>
         </div>
 
-        {/* Right Column */}
+        {/* Confidence Level */}
+        <div className="bg-white p-4 rounded-xl shadow-sm">
+          <h4 className="text-xl font-bold text-gray-800 mb-3">Confidence Level</h4>
+          <div className="space-y-3">
+            <div className="flex items-center">
+              <div className="w-full bg-gray-100 rounded-full h-3">
+                <div 
+                  className={`h-3 rounded-full ${riskInfo.color.replace('text', 'bg')} transition-all duration-500`}
+                  style={{ width: `${confidencePercentage}%` }}
+                ></div>
+              </div>
+              <span className="ml-4 text-xl font-semibold text-gray-700">{confidencePercentage}%</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+        {/* Left Column */}
         <div className="space-y-8">
           {/* What This Means */}
           <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
@@ -175,21 +144,52 @@ const MoleResults: React.FC<MoleResultsProps> = ({ result, onBack, imageUrl }) =
               ))}
             </ul>
           </div>
+        </div>
 
-          {/* Important Information */}
-          <div className="bg-gray-50 p-6 rounded-2xl shadow-lg border border-gray-200">
-            <div className="flex items-center gap-3 mb-4">
-              <span className="text-3xl">⚖️</span>
-              <h3 className="text-2xl font-bold text-gray-800">Important Information</h3>
+        {/* Right Column */}
+        <div className="space-y-8">
+          {/* Photo Section */}
+          <div className="bg-white p-6 rounded-2xl shadow-lg border border-gray-200">
+            <h3 className="text-2xl font-bold text-gray-800 mb-4">Your Photo</h3>
+            <div className="flex justify-center">
+              <img 
+                src={imageUrl} 
+                alt="Uploaded mole" 
+                className="max-w-full h-auto rounded-xl shadow-md"
+              />
             </div>
-            <p className="text-gray-700 leading-relaxed text-lg">
-              This assessment tool prioritizes comprehensive detection and is designed to be cautious. 
-              Results are most reliable in the lowest and highest ranges. While this system can help 
-              identify potential concerns, it is not a diagnostic tool. A qualified healthcare professional 
-              should always make the final determination regarding any skin lesion.
-            </p>
           </div>
         </div>
+      </div>
+
+      {/* Important Information - Spans both columns */}
+      <div className="mt-8 bg-gray-50 p-6 rounded-2xl shadow-lg border border-gray-200">
+        <div className="flex items-center gap-3 mb-4">
+          <span className="text-3xl">⚖️</span>
+          <h3 className="text-2xl font-bold text-gray-800">Important Information</h3>
+        </div>
+        <p className="text-gray-700 leading-relaxed text-lg">
+          This assessment tool prioritizes comprehensive detection and is designed to be cautious. 
+          Results are most reliable in the lowest and highest ranges. While this system can help 
+          identify potential concerns, it is not a diagnostic tool. A qualified healthcare professional 
+          should always make the final determination regarding any skin lesion.
+        </p>
+      </div>
+
+      {/* Action Buttons - Below Important Information */}
+      <div className="flex justify-center gap-4 mt-8">
+        <button
+          onClick={onBack}
+          className="px-8 py-3 bg-gray-100 text-gray-700 rounded-xl hover:bg-gray-200 transition-colors font-medium shadow-sm text-lg"
+        >
+          Back to Scanner
+        </button>
+        <button
+          className="px-8 py-3 bg-blue-600 text-white rounded-xl hover:bg-blue-700 transition-colors font-medium shadow-sm text-lg"
+          onClick={() => window.print()}
+        >
+          Print Results
+        </button>
       </div>
     </div>
   );
