@@ -73,7 +73,7 @@ const ImageCapture = ({ onImageCapture, buttonText }: ImageCaptureProps) => {
             ref={videoRef}
             autoPlay
             playsInline
-            className="w-full rounded-2xl shadow-card"
+            className="w-full h-[400px] object-cover rounded-2xl shadow-card"
           />
           <div className="flex justify-center gap-4 mt-4">
             <Button

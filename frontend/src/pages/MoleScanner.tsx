@@ -16,14 +16,6 @@ const PhotoGuidelines = () => (
   <div className="bg-white rounded-2xl shadow-card p-6 mb-6">
     <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
       <div className="space-y-2">
-        <h3 className="text-2xl font-bold text-primary-900">Good Example</h3>
-        <img
-          src="/assets/images/mole_example.png"
-          alt="Good mole photo example"
-          className="w-full h-auto rounded-lg shadow-sm"
-        />
-      </div>
-      <div className="space-y-2">
         <h3 className="text-2xl font-bold text-primary-900">Bad Example</h3>
         <img
           src="/assets/images/bad_mole_example.png"
@@ -31,39 +23,47 @@ const PhotoGuidelines = () => (
           className="w-full h-auto rounded-lg shadow-sm"
         />
       </div>
+      <div className="space-y-2">
+        <h3 className="text-2xl font-bold text-primary-900">Good Example</h3>
+        <img
+          src="/assets/images/mole_example.png"
+          alt="Good mole photo example"
+          className="w-full h-auto rounded-lg shadow-sm"
+        />
+      </div>
     </div>
     
     <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-12">
       <div className="space-y-4">
-        <h3 className="text-2xl font-bold text-primary-900 mb-2">📸 Photo Guide</h3>
+        <h3 className="text-2xl font-bold text-primary-900 mb-2">Photo Guide</h3>
         <div className="space-y-2">
-          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+          <div className="p-3 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
             Center the mole in frame
           </div>
-          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+          <div className="p-3 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
             Use good lighting
           </div>
-          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+          <div className="p-3 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
             Keep background simple
           </div>
-          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+          <div className="p-3 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
             Show entire mole
           </div>
         </div>
       </div>
       <div className="space-y-4">
-        <h3 className="text-2xl font-bold text-primary-900 mb-2">✂️ Crop Guide</h3>
+        <h3 className="text-2xl font-bold text-primary-900 mb-2">Crop Guide</h3>
         <div className="space-y-2">
-          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+          <div className="p-3 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
             Include some healthy skin
           </div>
-          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+          <div className="p-3 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
             Keep mole centered
           </div>
-          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+          <div className="p-3 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
             Make it clear and sharp
           </div>
-          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+          <div className="p-3 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
             Adjust crop to focus on the mole
           </div>
         </div>
