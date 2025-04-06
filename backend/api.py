@@ -12,13 +12,18 @@ import torch.nn.functional as F
 
 app = FastAPI()
 
-# Add CORS middleware
+# Configure CORS
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://dermoai.com"],  # Explicitly allow your frontend domain
+    allow_origins=[
+        "http://localhost:5173",  # Local development
+        "https://dermo-frontend.vercel.app",  # Vercel deployment
+        "https://dermo-frontend-git-main-itaymev.vercel.app",  # Vercel preview
+        "https://dermo-frontend-*.vercel.app"  # All Vercel preview deployments
+    ],
     allow_credentials=True,
-    allow_methods=["*"],  # Allows all methods
-    allow_headers=["*"],  # Allows all headers
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # Set up device

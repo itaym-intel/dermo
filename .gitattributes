@@ -1,1 +1,1 @@
-backend/skin_diagnosis/weights/* filter=lfs diff=lfs merge=lfs -text
+# Remove the model file entries since they're now hosted on Hugging Face
