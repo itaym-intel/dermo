@@ -65,6 +65,14 @@ const SkinResults: React.FC<SkinResultsProps> = ({ result, onBack }) => {
 
   const severityStyles = getSeverityColor(result.advice.Severity);
   const confidencePercentage = Math.round(result.confidence * 100);
+  
+  // Function to determine progress bar color based on confidence level
+  const getConfidenceColor = (confidence: number) => {
+    if (confidence >= 0.8) return 'bg-green-500';
+    if (confidence >= 0.6) return 'bg-blue-500';
+    if (confidence >= 0.4) return 'bg-yellow-500';
+    return 'bg-red-500';
+  };
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -90,16 +98,21 @@ const SkinResults: React.FC<SkinResultsProps> = ({ result, onBack }) => {
         {/* Confidence Level */}
         <div className="bg-white p-4 rounded-xl shadow-sm">
           <h4 className="text-3xl font-bold text-gray-800 mb-3">Confidence Level</h4>
-          <div className="flex items-center gap-4">
-            <div className="relative flex-1 h-3 bg-gray-100 rounded-full">
-              <div 
-                className={`absolute inset-0 ${severityStyles.split(' ')[0].replace('text', 'bg')} rounded-full transition-all duration-500`}
-                style={{ width: `${confidencePercentage}%` }}
-              />
-            </div>
-            <div className="w-20 text-right">
-              <span className="text-xl font-semibold text-gray-700">{confidencePercentage}%</span>
-            </div>
+          <div className="text-xl font-semibold text-gray-700 mb-2">
+            {confidencePercentage}%
+          </div>
+          
+          {/* Confidence Progress Bar */}
+          <div className="w-full bg-gray-200 rounded-full h-4 mb-2">
+            <div 
+              className={`h-4 rounded-full ${getConfidenceColor(result.confidence)}`}
+              style={{ width: `${confidencePercentage}%` }}
+            ></div>
+          </div>
+          <div className="text-sm text-gray-500">
+            {confidencePercentage >= 80 ? 'Very High Confidence' : 
+             confidencePercentage >= 60 ? 'High Confidence' : 
+             confidencePercentage >= 40 ? 'Moderate Confidence' : 'Low Confidence'}
           </div>
         </div>
       </div>
