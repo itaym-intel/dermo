@@ -70,6 +70,7 @@ module.exports = {
       animation: {
         'fade-in': 'fadeIn 0.5s ease-in-out',
         'slide-up': 'slideUp 0.5s ease-in-out',
+        'tracking-in-expand': 'tracking-in-expand 1.5s cubic-bezier(0.215, 0.610, 0.355, 1.000) both',
       },
       keyframes: {
         fadeIn: {
@@ -80,6 +81,18 @@ module.exports = {
           '0%': { transform: 'translateY(20px)', opacity: '0' },
           '100%': { transform: 'translateY(0)', opacity: '1' },
         },
+        'tracking-in-expand': {
+          '0%': {
+            'letter-spacing': '-0.5em',
+            opacity: '0'
+          },
+          '40%': {
+            opacity: '0.6'
+          },
+          '100%': {
+            opacity: '1'
+          }
+        }
       },
     },
   },

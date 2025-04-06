@@ -24,8 +24,11 @@ const LandingPage = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row items-center gap-16">
             <div className="md:w-1/2 animate-slide-up">
+              <h1 className="text-5xl md:text-6xl font-display text-primary-900 mb-0 leading-snug">
+                Your Personal <span className="logo text-blue-600 animate-tracking-in-expand">Dermatology</span>
+              </h1>
               <h1 className="text-5xl md:text-6xl font-display text-primary-900 mb-8 leading-snug">
-                Your Personal <span className="logo text-blue-600">Dermatology</span> Assistant
+                Smart Assistant
               </h1>
               <p className="text-xl text-primary-700 mb-12 leading-relaxed">
                 Get instant, accurate skin analysis and personalized recommendations from our AI-powered dermatology platform.
@@ -43,14 +46,18 @@ const LandingPage = () => {
               </div>
             </div>
             <div className="md:w-1/2 animate-slide-up">
-              <div className="relative">
+              <div className="relative max-w-md">
                 <div className="absolute inset-0 bg-blue-100 rounded-3xl transform rotate-3"></div>
-                <div className="aspect-w-16 aspect-h-9 bg-gradient-to-br from-primary-100 to-blue-100 rounded-2xl mb-6"></div>
+                <img
+                  src="/src/assets/images/pierce_side_shot.png"
+                  alt="Pierce Englund"
+                  className="relative w-full h-auto rounded-2xl shadow-card object-cover"
+                />
               </div>
             </div>
           </div>
 
-          <div className="container mx-auto max-w-6xl px-6">
+          <div className="container mx-auto max-w-6xl px-6 pt-20">
             <div className="text-center mb-20">
               <h2 className="text-3xl md:text-4xl font-display text-primary-900 mb-6">
                 Our Diagnostic Tools
