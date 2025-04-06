@@ -1,5 +1,151 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import TopBar from '../components/TopBar';
+
+// Dataset visualization component
+const DatasetVisualization = () => {
+  // Dataset statistics
+  const datasetStats: Record<string, number> = {
+    "Bite & Infestation Reactions": 1036,
+    "Bullous & Blistering": 1404,
+    "Depigmentation Disorders": 3023,
+    "Infectious Lesions": 6173,
+    "Inflammatory Red Patches": 5105,
+    "Other": 1612,
+    "Pigmented Lesions": 356962,
+    "Tumor-like Growths": 5286,
+    "Vascular Lesions": 1259
+  };
+
+  // Subfolder statistics for detailed view
+  const subfolderStats: Record<string, Record<string, number>> = {
+    "Bite & Infestation Reactions": {
+      "Arthropod Bites": 585,
+      "Infestations": 451
+    },
+    "Bullous & Blistering": {
+      "Bullous Disorders": 446,
+      "Drug Reactions": 958
+    },
+    "Depigmentation Disorders": {
+      "Lichen Planus": 2117,
+      "Lupus": 277,
+      "Vitiligo": 629
+    },
+    "Infectious Lesions": {
+      "Bacterial Infections": 990,
+      "Candidiasis": 210,
+      "Fungal Infections": 2541,
+      "Viral Infections": 2432
+    },
+    "Inflammatory Red Patches": {
+      "Eczema & Dermatitis": 3471,
+      "Erythema Disorders": 496,
+      "Photodermatoses": 91,
+      "Pityriasis Rosea": 302,
+      "Psoriasis": 745
+    },
+    "Other": {
+      "Actinic Damage": 123,
+      "Normal Skin": 1489
+    },
+    "Pigmented Lesions": {
+      "Actinic Keratosis": 727,
+      "Lentigo": 64,
+      "Melanocytic Nevi (Moles)": 327365,
+      "Melanoma": 27062,
+      "Seborrheic Keratoses": 1744
+    },
+    "Tumor-like Growths": {
+      "Basal Cell Carcinoma": 2633,
+      "Benign Tumors": 2576,
+      "Squamous Cell Carcinoma": 77
+    },
+    "Vascular Lesions": {
+      "Urticaria": 300,
+      "Vascular Tumors": 561,
+      "Vasculitis": 398
+    }
+  };
+
+  // Calculate total images
+  const totalImages = Object.values(datasetStats).reduce((sum, count) => sum + count, 0);
+  
+  // Calculate percentages for pie chart
+  const percentages = Object.entries(datasetStats).map(([category, count]) => ({
+    category,
+    count,
+    percentage: (count / totalImages) * 100
+  }));
+
+  // Sort by count for bar chart
+  const sortedCategories = [...percentages].sort((a, b) => b.count - a.count);
+
+  // Colors for visualization
+  const colors = [
+    "#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6", 
+    "#EC4899", "#6366F1", "#14B8A6", "#F97316"
+  ];
+
+  return (
+    <div className="w-full">
+      <div className="mb-4 text-center">
+        <h3 className="text-xl font-bold text-gray-800">Dataset Distribution</h3>
+        <p className="text-gray-600">Total Images: {totalImages.toLocaleString()}</p>
+      </div>
+      
+      {/* Bar Chart */}
+      <div className="mb-6">
+        <h4 className="text-lg font-semibold text-gray-700 mb-2">Images by Category</h4>
+        <div className="space-y-2">
+          {sortedCategories.map((item, index) => (
+            <div key={item.category} className="relative">
+              <div className="flex justify-between mb-1">
+                <span className="text-sm font-medium text-gray-700">{item.category}</span>
+                <span className="text-sm font-medium text-gray-700">{item.count.toLocaleString()} ({item.percentage.toFixed(1)}%)</span>
+              </div>
+              <div className="w-full bg-gray-200 rounded-full h-2.5">
+                <div 
+                  className="h-2.5 rounded-full" 
+                  style={{ 
+                    width: `${(item.count / sortedCategories[0].count) * 100}%`,
+                    backgroundColor: colors[index % colors.length]
+                  }}
+                ></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      {/* Pie Chart (Simplified) */}
+      <div className="mb-6">
+        <h4 className="text-lg font-semibold text-gray-700 mb-2">Distribution Overview</h4>
+        <div className="flex flex-wrap justify-center gap-2">
+          {percentages.map((item, index) => (
+            <div key={item.category} className="flex items-center">
+              <div 
+                className="w-4 h-4 rounded-full mr-2" 
+                style={{ backgroundColor: colors[index % colors.length] }}
+              ></div>
+              <span className="text-sm text-gray-700">{item.category}: {item.percentage.toFixed(1)}%</span>
+            </div>
+          ))}
+        </div>
+      </div>
+      
+      {/* Key Statistics */}
+      <div className="bg-blue-50 p-4 rounded-lg">
+        <h4 className="text-lg font-semibold text-gray-700 mb-2">Key Statistics</h4>
+        <ul className="space-y-1 text-sm text-gray-700">
+          <li>• Largest category: <span className="font-medium">{sortedCategories[0].category}</span> with {sortedCategories[0].count.toLocaleString()} images</li>
+          <li>• Smallest category: <span className="font-medium">{sortedCategories[sortedCategories.length - 1].category}</span> with {sortedCategories[sortedCategories.length - 1].count.toLocaleString()} images</li>
+          <li>• Average category size: {(totalImages / sortedCategories.length).toLocaleString()} images</li>
+          <li>• Total unique conditions: {Object.keys(subfolderStats).reduce((sum, category) => sum + Object.keys(subfolderStats[category]).length, 0)}</li>
+        </ul>
+      </div>
+    </div>
+  );
+};
 
 const About = () => {
   // Model statistics - these would be updated with real data
@@ -318,14 +464,7 @@ const About = () => {
             <div className="flex flex-col md:flex-row gap-8">
               <div className="md:w-1/2">
                 <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 shadow-sm">
-                  <img 
-                    src="/assets/images/dataset-visualization.png" 
-                    alt="Dataset Visualization" 
-                    className="w-full h-auto rounded-lg"
-                    onError={(e) => {
-                      e.currentTarget.src = "https://via.placeholder.com/600x400?text=Dataset+Visualization";
-                    }}
-                  />
+                  <DatasetVisualization />
                 </div>
               </div>
               <div className="md:w-1/2 space-y-6">
@@ -355,7 +494,7 @@ const About = () => {
                     <ul className="space-y-2">
                       <li className="flex items-start">
                         <span className="text-blue-600 mr-2">✓</span>
-                        <span className="text-gray-700">450,000+ high-quality images</span>
+                        <span className="text-gray-700">380,000+ high-quality images</span>
                       </li>
                       <li className="flex items-start">
                         <span className="text-blue-600 mr-2">✓</span>
