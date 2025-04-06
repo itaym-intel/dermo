@@ -5,15 +5,11 @@ import { useEffect, useState } from 'react';
 const LandingPage = () => {
   const navigate = useNavigate();
   const [scrollPosition, setScrollPosition] = useState(0);
-  const [isHeroVisible, setIsHeroVisible] = useState(true);
 
   useEffect(() => {
     const handleScroll = () => {
       const currentScroll = window.scrollY;
       setScrollPosition(currentScroll);
-      
-      // Remove the hero visibility toggle since we want to keep it visible
-      setIsHeroVisible(true);
     };
 
     window.addEventListener('scroll', handleScroll);
