@@ -7,7 +7,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 
 interface ScanResult {
   diagnosis: string;
-  confidence: number;
+  positive: number;
   recommendations: string[];
 }
 
