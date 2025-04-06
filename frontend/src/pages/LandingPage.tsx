@@ -152,17 +152,17 @@ const LandingPage = () => {
           </h2>
           <div className="grid md:grid-cols-3 gap-12">
             <div className="card p-8">
-              <div className="text-5xl mb-6">📸</div>
+              <div className="text-5xl mb-6 filter grayscale">📸</div>
               <h3 className="text-4xl font-display text-primary-900 mb-4">Upload Image</h3>
               <p className="text-xl text-primary-700">Take a clear photo of your skin condition or mole.</p>
             </div>
             <div className="card p-8">
-              <div className="text-5xl mb-6">🤖</div>
+              <div className="text-5xl mb-6 filter grayscale">🤖</div>
               <h3 className="text-4xl font-display text-primary-900 mb-4">AI Analysis</h3>
               <p className="text-xl text-primary-700">Our advanced AI analyzes your image for potential concerns.</p>
             </div>
             <div className="card p-8">
-              <div className="text-5xl mb-6">📋</div>
+              <div className="text-5xl mb-6 filter grayscale">📋</div>
               <h3 className="text-4xl font-display text-primary-900 mb-4">Get Results</h3>
               <p className="text-xl text-primary-700">Receive detailed analysis and personalized recommendations.</p>
             </div>
