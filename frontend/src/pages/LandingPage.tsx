@@ -24,11 +24,16 @@ const LandingPage = () => {
         <div className="container mx-auto max-w-6xl">
           <div className="flex flex-col md:flex-row items-center gap-16">
             <div className="md:w-1/2 animate-slide-up">
-              <h1 className="text-5xl md:text-6xl font-display text-primary-900 mb-0 leading-snug">
-                Your Personal <span className="logo text-blue-600 animate-tracking-in-expand">Dermatology</span>
-              </h1>
               <h1 className="text-5xl md:text-6xl font-display text-primary-900 mb-8 leading-snug">
-                Smart Assistant
+                <div>
+                  Your Personal 
+                </div>
+                <div>
+                  <span className="logo text-blue-600 animate-tracking-in-expand">Dermatology</span>
+                </div>
+                <div>
+                  Smart Assistant
+                </div>
               </h1>
               <p className="text-xl text-primary-700 mb-12 leading-relaxed">
                 Get instant, accurate skin analysis and personalized recommendations from our AI-powered dermatology platform.
