@@ -12,7 +12,7 @@ interface ScanResult {
 
 const PhotoGuidelines = () => (
   <div className="bg-white rounded-2xl shadow-card p-6 mb-6">
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
       <div className="space-y-2">
         <h3 className="text-2xl font-bold text-primary-900">Good Example</h3>
         <img
@@ -31,24 +31,40 @@ const PhotoGuidelines = () => (
       </div>
     </div>
     
-    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div className="bg-blue-50 p-4 rounded-lg">
+    <div className="mt-4 grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div className="space-y-4">
         <h3 className="text-2xl font-bold text-primary-900 mb-2">📸 Photo Guide</h3>
-        <ul className="list-disc list-inside space-y-1 text-primary-800">
-          <li>Center the mole in frame</li>
-          <li>Use good lighting</li>
-          <li>Keep background simple</li>
-          <li>Show entire mole</li>
-        </ul>
+        <div className="space-y-2">
+          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+            Center the mole in frame
+          </div>
+          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+            Use good lighting
+          </div>
+          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+            Keep background simple
+          </div>
+          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+            Show entire mole
+          </div>
+        </div>
       </div>
-      <div className="bg-blue-50 p-4 rounded-lg">
+      <div className="space-y-4">
         <h3 className="text-2xl font-bold text-primary-900 mb-2">✂️ Crop Guide</h3>
-        <ul className="list-disc list-inside space-y-1 text-primary-800">
-          <li>Square crop works best</li>
-          <li>Include some healthy skin</li>
-          <li>Keep mole centered</li>
-          <li>Make it clear and sharp</li>
-        </ul>
+        <div className="space-y-2">
+          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+            Square crop works best
+          </div>
+          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+            Include some healthy skin
+          </div>
+          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+            Keep mole centered
+          </div>
+          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+            Make it clear and sharp
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -136,11 +152,12 @@ const MoleScanner = () => {
   return (
     <div className="min-h-screen bg-white">
       <TopBar />
-      <div className="pt-32 pb-20 px-6">
+      <div className="pt-40 pb-20 px-6">
         <div className="container mx-auto max-w-4xl">
-          <div className="card p-8">
-            <h1 className="text-4xl font-display text-primary-900 mb-8 text-center">
-              Mole Scanner
+            <h1 className="text-4xl font-display mb-8 text-center">
+              <span className="px-6 py-2 bg-blue-600 text-white rounded-lg">
+                Mole Scanner
+              </span>
             </h1>
             
             <PhotoGuidelines />
@@ -237,7 +254,6 @@ const MoleScanner = () => {
           </div>
         </div>
       </div>
-    </div>
   );
 };
 

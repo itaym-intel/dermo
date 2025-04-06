@@ -102,11 +102,11 @@ const ImageCapture = ({ onImageCapture, buttonText }: ImageCaptureProps) => {
             sx={{
               py: 1.5,
               borderRadius: '8px',
-              backgroundColor: '#1c7ed6',
+              backgroundColor: '#2563eb',
               textTransform: 'none',
               fontSize: '1rem',
               '&:hover': {
-                backgroundColor: '#1864ab',
+                backgroundColor: '#1d4ed8',
               },
             }}
           >
