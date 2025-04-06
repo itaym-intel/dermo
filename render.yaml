@@ -3,8 +3,15 @@ services:
     name: dermo-backend
     env: python
     rootDir: backend
-    buildCommand: pip install -r requirements.txt
-    startCommand: uvicorn api:app --host 0.0.0.0 --port $PORT
+    buildCommand: |
+      pip install -r requirements.txt
+      echo "Current directory: $(pwd)"
+      echo "Files in directory: $(ls -la)"
+    startCommand: |
+      echo "Starting API server..."
+      uvicorn api:app --host 0.0.0.0 --port $PORT --reload
     envVars:
       - key: PYTHON_VERSION
-        value: 3.9.0 
+        value: 3.9.0
+      - key: PYTHONPATH
+        value: /opt/render/project/src/backend 
