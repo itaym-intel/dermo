@@ -3,75 +3,92 @@ import TopBar from '../components/TopBar';
 
 // Dataset visualization component
 const DatasetVisualization = () => {
-  // Dataset statistics
-  const datasetStats: Record<string, number> = {
-    "Bite & Infestation Reactions": 1036,
-    "Bullous & Blistering": 1404,
-    "Depigmentation Disorders": 3023,
-    "Infectious Lesions": 6173,
-    "Inflammatory Red Patches": 5105,
-    "Other": 1612,
-    "Pigmented Lesions": 356962,
-    "Tumor-like Growths": 5286,
-    "Vascular Lesions": 1259
+  // Using subfolder categories for more even distribution
+  const subfolderCategories: Record<string, number> = {
+    // Bite & Infestation Reactions
+    "Arthropod Bites": 585,
+    "Infestations": 451,
+    
+    // Bullous & Blistering
+    "Bullous Disorders": 446,
+    "Drug Reactions": 958,
+    
+    // Depigmentation Disorders
+    "Lichen Planus": 2117,
+    "Lupus": 277,
+    "Vitiligo": 629,
+    
+    // Infectious Lesions
+    "Bacterial Infections": 990,
+    "Candidiasis": 210,
+    "Fungal Infections": 2541,
+    "Viral Infections": 2432,
+    
+    // Inflammatory Red Patches
+    "Eczema & Dermatitis": 3471,
+    "Erythema Disorders": 496,
+    "Photodermatoses": 91,
+    "Pityriasis Rosea": 302,
+    "Psoriasis": 745,
+    
+    // Other
+    "Actinic Damage": 123,
+    "Normal Skin": 1489,
+    
+    // Pigmented Lesions
+    "Actinic Keratosis": 727,
+    "Lentigo": 64,
+    "Melanocytic Nevi (Moles)": 327365,
+    "Melanoma": 27062,
+    "Seborrheic Keratoses": 1744,
+    
+    // Tumor-like Growths
+    "Basal Cell Carcinoma": 2633,
+    "Benign Tumors": 2576,
+    "Squamous Cell Carcinoma": 77,
+    
+    // Vascular Lesions
+    "Urticaria": 300,
+    "Vascular Tumors": 561,
+    "Vasculitis": 398
   };
 
-  // Subfolder statistics for detailed view
-  const subfolderStats: Record<string, Record<string, number>> = {
-    "Bite & Infestation Reactions": {
-      "Arthropod Bites": 585,
-      "Infestations": 451
-    },
-    "Bullous & Blistering": {
-      "Bullous Disorders": 446,
-      "Drug Reactions": 958
-    },
-    "Depigmentation Disorders": {
-      "Lichen Planus": 2117,
-      "Lupus": 277,
-      "Vitiligo": 629
-    },
-    "Infectious Lesions": {
-      "Bacterial Infections": 990,
-      "Candidiasis": 210,
-      "Fungal Infections": 2541,
-      "Viral Infections": 2432
-    },
-    "Inflammatory Red Patches": {
-      "Eczema & Dermatitis": 3471,
-      "Erythema Disorders": 496,
-      "Photodermatoses": 91,
-      "Pityriasis Rosea": 302,
-      "Psoriasis": 745
-    },
-    "Other": {
-      "Actinic Damage": 123,
-      "Normal Skin": 1489
-    },
-    "Pigmented Lesions": {
-      "Actinic Keratosis": 727,
-      "Lentigo": 64,
-      "Melanocytic Nevi (Moles)": 327365,
-      "Melanoma": 27062,
-      "Seborrheic Keratoses": 1744
-    },
-    "Tumor-like Growths": {
-      "Basal Cell Carcinoma": 2633,
-      "Benign Tumors": 2576,
-      "Squamous Cell Carcinoma": 77
-    },
-    "Vascular Lesions": {
-      "Urticaria": 300,
-      "Vascular Tumors": 561,
-      "Vasculitis": 398
-    }
+  // Reorganized macro folders for more balanced visualization
+  const macroFolders: Record<string, string[]> = {
+    // Breaking down Pigmented Lesions into smaller groups
+    "Melanocytic Nevi": ["Melanocytic Nevi (Moles)"],
+    "Melanoma": ["Melanoma"],
+    "Other Pigmented Lesions": ["Actinic Keratosis", "Lentigo", "Seborrheic Keratoses"],
+    
+    // Breaking down Infectious Lesions
+    "Fungal & Viral Infections": ["Fungal Infections", "Viral Infections"],
+    "Bacterial & Yeast Infections": ["Bacterial Infections", "Candidiasis"],
+    
+    // Breaking down Inflammatory Red Patches
+    "Eczema & Psoriasis": ["Eczema & Dermatitis", "Psoriasis"],
+    "Other Inflammatory Conditions": ["Erythema Disorders", "Photodermatoses", "Pityriasis Rosea"],
+    
+    // Breaking down Tumor-like Growths
+    "Basal Cell Carcinoma": ["Basal Cell Carcinoma"],
+    "Benign Tumors": ["Benign Tumors"],
+    "Squamous Cell Carcinoma": ["Squamous Cell Carcinoma"],
+    
+    // Breaking down Depigmentation Disorders
+    "Lichen Planus": ["Lichen Planus"],
+    "Other Depigmentation": ["Lupus", "Vitiligo"],
+    
+    // Other categories remain the same
+    "Bite & Infestation Reactions": ["Arthropod Bites", "Infestations"],
+    "Bullous & Blistering": ["Bullous Disorders", "Drug Reactions"],
+    "Vascular Lesions": ["Urticaria", "Vascular Tumors", "Vasculitis"],
+    "Other": ["Actinic Damage", "Normal Skin"]
   };
 
   // Calculate total images
-  const totalImages = Object.values(datasetStats).reduce((sum, count) => sum + count, 0);
+  const totalImages = Object.values(subfolderCategories).reduce((sum, count) => sum + count, 0);
   
-  // Calculate percentages for pie chart
-  const percentages = Object.entries(datasetStats).map(([category, count]) => ({
+  // Calculate percentages for visualization
+  const percentages = Object.entries(subfolderCategories).map(([category, count]) => ({
     category,
     count,
     percentage: (count / totalImages) * 100
@@ -83,8 +100,18 @@ const DatasetVisualization = () => {
   // Colors for visualization
   const colors = [
     "#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6", 
-    "#EC4899", "#6366F1", "#14B8A6", "#F97316"
+    "#EC4899", "#6366F1", "#14B8A6", "#F97316", "#06B6D4",
+    "#84CC16", "#F43F5E", "#8B5CF6", "#EC4899", "#6366F1",
+    "#14B8A6", "#F97316", "#06B6D4", "#84CC16", "#F43F5E",
+    "#8B5CF6", "#EC4899", "#6366F1", "#14B8A6", "#F97316",
+    "#06B6D4", "#84CC16", "#F43F5E", "#8B5CF6"
   ];
+
+  // Get top 10 categories for the main visualization
+  const topCategories = sortedCategories.slice(0, 10);
+  
+  // Get remaining categories
+  const remainingCategories = sortedCategories.slice(10);
 
   return (
     <div className="w-full">
@@ -93,11 +120,11 @@ const DatasetVisualization = () => {
         <p className="text-gray-600">Total Images: {totalImages.toLocaleString()}</p>
       </div>
       
-      {/* Bar Chart */}
+      {/* Bar Chart - Top 10 Categories */}
       <div className="mb-6">
-        <h4 className="text-lg font-semibold text-gray-700 mb-2">Images by Category</h4>
+        <h4 className="text-lg font-semibold text-gray-700 mb-2">Top 10 Categories</h4>
         <div className="space-y-2">
-          {sortedCategories.map((item, index) => (
+          {topCategories.map((item, index) => (
             <div key={item.category} className="relative">
               <div className="flex justify-between mb-1">
                 <span className="text-sm font-medium text-gray-700">{item.category}</span>
@@ -107,7 +134,7 @@ const DatasetVisualization = () => {
                 <div 
                   className="h-2.5 rounded-full" 
                   style={{ 
-                    width: `${(item.count / sortedCategories[0].count) * 100}%`,
+                    width: `${(item.count / topCategories[0].count) * 100}%`,
                     backgroundColor: colors[index % colors.length]
                   }}
                 ></div>
@@ -117,19 +144,48 @@ const DatasetVisualization = () => {
         </div>
       </div>
       
-      {/* Pie Chart (Simplified) */}
+      {/* Remaining Categories Summary */}
       <div className="mb-6">
-        <h4 className="text-lg font-semibold text-gray-700 mb-2">Distribution Overview</h4>
-        <div className="flex flex-wrap justify-center gap-2">
-          {percentages.map((item, index) => (
+        <h4 className="text-lg font-semibold text-gray-700 mb-2">Remaining Categories</h4>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
+          {remainingCategories.map((item, index) => (
             <div key={item.category} className="flex items-center">
               <div 
-                className="w-4 h-4 rounded-full mr-2" 
-                style={{ backgroundColor: colors[index % colors.length] }}
+                className="w-3 h-3 rounded-full mr-1" 
+                style={{ backgroundColor: colors[(index + 10) % colors.length] }}
               ></div>
-              <span className="text-sm text-gray-700">{item.category}: {item.percentage.toFixed(1)}%</span>
+              <span className="text-xs text-gray-700 truncate">{item.category}: {item.count.toLocaleString()}</span>
             </div>
           ))}
+        </div>
+      </div>
+      
+      {/* Macro Folder Summary */}
+      <div className="mb-6">
+        <h4 className="text-lg font-semibold text-gray-700 mb-2">Macro Categories</h4>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-2">
+          {Object.entries(macroFolders).map(([macroFolder, subfolders], index) => {
+            const totalCount = subfolders.reduce((sum, subfolder) => sum + subfolderCategories[subfolder], 0);
+            const percentage = (totalCount / totalImages) * 100;
+            
+            return (
+              <div key={macroFolder} className="p-2 bg-gray-50 rounded-lg">
+                <div className="flex justify-between">
+                  <span className="text-sm font-medium text-gray-700">{macroFolder}</span>
+                  <span className="text-sm text-gray-600">{totalCount.toLocaleString()} ({percentage.toFixed(1)}%)</span>
+                </div>
+                <div className="w-full bg-gray-200 rounded-full h-1.5 mt-1">
+                  <div 
+                    className="h-1.5 rounded-full" 
+                    style={{ 
+                      width: `${percentage}%`,
+                      backgroundColor: colors[index % colors.length]
+                    }}
+                  ></div>
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
       
@@ -139,8 +195,8 @@ const DatasetVisualization = () => {
         <ul className="space-y-1 text-sm text-gray-700">
           <li>• Largest category: <span className="font-medium">{sortedCategories[0].category}</span> with {sortedCategories[0].count.toLocaleString()} images</li>
           <li>• Smallest category: <span className="font-medium">{sortedCategories[sortedCategories.length - 1].category}</span> with {sortedCategories[sortedCategories.length - 1].count.toLocaleString()} images</li>
-          <li>• Average category size: {(totalImages / sortedCategories.length).toLocaleString()} images</li>
-          <li>• Total unique conditions: {Object.keys(subfolderStats).reduce((sum, category) => sum + Object.keys(subfolderStats[category]).length, 0)}</li>
+          <li>• Total unique conditions: {Object.keys(subfolderCategories).length}</li>
+          <li>• Macro categories: {Object.keys(macroFolders).length}</li>
         </ul>
       </div>
     </div>
