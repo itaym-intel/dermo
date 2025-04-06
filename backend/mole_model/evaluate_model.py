@@ -5,8 +5,7 @@ from tqdm import tqdm
 import h5py
 from PIL import Image
 from io import BytesIO
-import albumentations as A
-from albumentations.pytorch import ToTensorV2
+from torchvision import transforms
 import timm
 import argparse
 from sklearn.metrics import roc_auc_score, accuracy_score, precision_score, recall_score, f1_score
@@ -31,24 +30,22 @@ class ISICModel(torch.nn.Module):
         return self.model(x)
 
 
-def predict_single_image(model, image_path, device, transformations):
+def predict_single_image(model, image_path, device, transform):
     """
     Predict on a single image
     Args:
         model: The loaded model
         image_path: Path to the image file
         device: Device to run inference on
-        transformations: Image transformations to apply
+        transform: Image transformations to apply
     Returns:
         Dictionary with class probabilities
     """
     # Load and preprocess image
     image = Image.open(image_path).convert('RGB')
-    image = np.array(image)
     
     # Apply transformations
-    transformed = transformations(image=image)
-    image_tensor = transformed['image'].unsqueeze(0).to(device)
+    image_tensor = transform(image).unsqueeze(0).to(device)
     
     # Make prediction
     model.eval()
@@ -58,8 +55,8 @@ def predict_single_image(model, image_path, device, transformations):
     
     # Create prediction dictionary
     predictions = {
-        'Positive': float(probability),
-        'Negative': float(1 - probability)
+        'Ailment': 'Cancer',
+        'Positive': float(probability)
     }
     
     return predictions
@@ -100,16 +97,14 @@ def main():
     print(f"Using device: {device}")
 
     # Define transformations
-    transformations = A.Compose([
-        A.Resize(256, 256),
-        A.Normalize(
-            mean=[0.4815, 0.4578, 0.4082], 
-            std=[0.2686, 0.2613, 0.2758], 
-            max_pixel_value=255.0,
-            p=1.0
-        ),
-        ToTensorV2(),
-    ], p=1.)
+    transform = transforms.Compose([
+        transforms.Resize((256, 256)),
+        transforms.ToTensor(),
+        transforms.Normalize(
+            mean=[0.4815, 0.4578, 0.4082],
+            std=[0.2686, 0.2613, 0.2758]
+        )
+    ])
 
     # Load the saved model
     print("Loading the saved model...")
@@ -121,7 +116,7 @@ def main():
     if args.image:
         # Predict on single image
         print(f"\nPredicting on image: {args.image}")
-        predictions = predict_single_image(model, args.image, device, transformations)
+        predictions = predict_single_image(model, args.image, device, transform)
         
         print("\nPrediction Results:")
         print("-" * 50)
