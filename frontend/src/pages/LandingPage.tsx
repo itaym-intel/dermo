@@ -54,7 +54,7 @@ const LandingPage = () => {
               <div className="relative max-w-md">
                 <div className="absolute inset-0 bg-blue-100 rounded-3xl transform rotate-3"></div>
                 <img
-                  src="/src/assets/images/pierce_side_shot.png"
+                  src="/assets/images/pierce_side_shot.png"
                   alt="Pierce Englund"
                   className="relative w-full h-auto rounded-2xl shadow-card object-cover"
                 />
