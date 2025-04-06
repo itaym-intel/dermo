@@ -9,6 +9,9 @@ services:
       echo "Files in directory: $(ls -la)"
     startCommand: |
       echo "Starting API server..."
+      cd /opt/render/project/src/backend
+      echo "Current directory after cd: $(pwd)"
+      echo "Files in directory: $(ls -la)"
       uvicorn api:app --host 0.0.0.0 --port $PORT --reload
     envVars:
       - key: PYTHON_VERSION

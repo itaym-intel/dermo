@@ -57,8 +57,17 @@ async def predict(file: UploadFile = File(...)):
     
     # Create prediction dictionary
     predictions = {
-        'Ailment': 'Cancer',
-        'Positive': float(probability)
+        'diagnosis': 'Cancer' if probability > 0.5 else 'Benign',
+        'confidence': float(probability),
+        'recommendations': [
+            'Please consult a dermatologist for a professional evaluation.',
+            'Regular monitoring of skin changes is recommended.',
+            'Keep track of any changes in size, shape, or color.'
+        ] if probability > 0.5 else [
+            'Continue regular skin monitoring.',
+            'Use sun protection and practice skin safety.',
+            'Schedule routine skin check-ups with your healthcare provider.'
+        ]
     }
     
     return predictions

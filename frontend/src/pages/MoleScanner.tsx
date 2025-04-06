@@ -116,7 +116,7 @@ const MoleScanner = () => {
       const file = new File([blob], 'cropped-mole.jpg', { type: 'image/jpeg' });
 
       const formData = new FormData();
-      formData.append('image', file);
+      formData.append('file', file);
 
       const apiResponse = await fetch(`${import.meta.env.VITE_API_URL}/predict`, {
         method: 'POST',
