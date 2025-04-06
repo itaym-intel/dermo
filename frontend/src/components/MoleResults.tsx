@@ -2,7 +2,7 @@ import React from 'react';
 
 interface ScanResult {
   diagnosis: string;
-  confidence: number;
+  positive: number;
   recommendations: string[];
 }
 
@@ -13,7 +13,7 @@ interface MoleResultsProps {
 
 const MoleResults: React.FC<MoleResultsProps> = ({ result, onBack }) => {
   const diagnosisColor = result.diagnosis === 'Cancer' ? 'text-red-600' : 'text-green-600';
-  const confidence = Math.abs(.5 - result.confidence) * 2;
+  const confidence = Math.abs(.5 - result.positive) * 2;
   const confidencePercentage = (confidence * 100).toFixed(1);
 
   return (
