@@ -160,7 +160,7 @@ const SkinScanner = () => {
         const formData = new FormData();
         formData.append('file', file);
 
-        const apiResponse = await fetch(`${import.meta.env.VITE_API_URL}/diagnose-skin`, {
+        const apiResponse = await fetch(`${import.meta.env.VITE_API_URL}/diagnose_skin`, {
           method: 'POST',
           body: formData,
         });
