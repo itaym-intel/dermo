@@ -53,9 +53,6 @@ const PhotoGuidelines = () => (
         <h3 className="text-2xl font-bold text-primary-900 mb-2">✂️ Crop Guide</h3>
         <div className="space-y-2">
           <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
-            Square crop works best
-          </div>
-          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
             Include some healthy skin
           </div>
           <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
@@ -63,6 +60,9 @@ const PhotoGuidelines = () => (
           </div>
           <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
             Make it clear and sharp
+          </div>
+          <div className="bg-blue-50 p-3 rounded-lg border border-blue-600">
+            Adjust crop to focus on the mole
           </div>
         </div>
       </div>
@@ -168,7 +168,6 @@ const MoleScanner = () => {
                   <ReactCrop
                     crop={crop}
                     onChange={(c: Crop) => setCrop(c)}
-                    aspect={1}
                   >
                     <img
                       ref={imageRef}
