@@ -1,13 +1,14 @@
 from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 import torch
-import numpy as np
 from PIL import Image
 import io
 import os
 from torchvision import transforms
-import timm
 from mole_model.evaluate_model import ISICModel
+from skin_diagnosis.model import ViTClassifier, vi_processor
+from groq import get_medical_advice
+import torch.nn.functional as F
 
 app = FastAPI()
 
@@ -71,6 +72,78 @@ async def predict(file: UploadFile = File(...)):
     }
     
     return predictions
+
+# Path to your best_model.pth from training
+skin_diagnosis_weights_path = os.path.join(current_dir, 'skin_diagnosis', 'best_model.pth')
+
+# Example class_to_idx from training (adjust to your real classes):
+class_to_idx = {
+    'Acne': 0,
+    'Actinic_Keratosis': 1,
+    'Benign_tumors': 2,
+    'Bullous': 3,
+    'Candidiasis': 4,
+    'DrugEruption': 5,
+    'Eczema': 6,
+    'Infestations_Bites': 7,
+    'Lichen': 8,
+    'Lupus': 9,
+    'Moles': 10,
+    'Psoriasis': 11,
+    'Rosacea': 12,
+    'Seborrh_Keratoses': 13,
+    'SkinCancer': 14,
+    'Sun_Sunlight_Damage': 15,
+    'Tinea': 16,
+    'Unknown_Normal': 17,
+    'Vascular_Tumors': 18,
+    'Vasculitis': 19,
+    'Vitiligo': 20,
+    'Warts': 21
+}
+idx_to_class = {v: k for k, v in class_to_idx.items()}
+NUM_CLASSES = len(class_to_idx)
+
+# Instantiate the classifier
+skin_diagnosis_model = ViTClassifier(NUM_CLASSES)
+skin_diagnosis_model.load_state_dict(
+    torch.load(skin_diagnosis_weights_path, map_location=device),
+    strict=False
+)
+skin_diagnosis_model = skin_diagnosis_model.to(device)
+skin_diagnosis_model.eval()
+
+
+@app.post("/diagnose_skin")
+async def predict(file: UploadFile = File(...)):
+    # Read the image file
+    contents = await file.read()
+    image = Image.open(io.BytesIO(contents)).convert('RGB')
+
+    # Preprocess with vi_processor for multi-class
+    pixel_values = vi_processor(image, return_tensors="pt")["pixel_values"]
+
+    # Make prediction
+    with torch.no_grad():
+        outputs = skin_diagnosis_model(pixel_values.to(device))
+        probs = F.softmax(outputs, dim=1)
+        pred_idx = probs.argmax(dim=1).item()
+        confidence = probs[0, pred_idx].item()
+
+    # Get predicted class index
+    pred_idx = outputs.argmax(dim=1).item()
+    pred_class = idx_to_class[pred_idx]
+
+    # For example, get advice from an LLM or a local map
+    response = get_medical_advice(pred_class)
+
+    # Return as a dict (JSON)
+    return {
+      "prediction": pred_class,
+      "advice": response,
+      "confidence": confidence
+    }
+
 
 @app.get("/")
 async def root():
