@@ -84,7 +84,7 @@ const LandingPage = () => {
               <div>Smart Assistant</div>
             </h1>
             <p className="text-xl mb-12 leading-relaxed">
-              Get instant, accurate skin analysis and personalized recommendations from our AI-powered dermatology platform.
+              Get instant, accurate skin, mole, and cancer analysis with personalized recommendations from our AI-powered dermatology platform.
             </p>
             <div className="flex flex-col sm:flex-row gap-6 justify-center">
               <button 
