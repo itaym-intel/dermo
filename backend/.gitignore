@@ -1,0 +1,3 @@
+mole_model/__pycache__
+mole_model/final_isic_model.pt
+skin_diagnosis_macro_micro/weights/
