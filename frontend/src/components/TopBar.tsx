@@ -24,7 +24,7 @@ const TopBar = () => {
   };
 
   return (
-    <nav className="bg-white fixed w-full top-0 z-50 transition-all duration-300">
+    <nav className="bg-blue-50/30 backdrop-blur-sm fixed w-full top-0 z-50 transition-all duration-300">
       <div className="container mx-auto px-6">
         <div className="flex items-center justify-between h-24">
           <Link to="/" className="flex items-center space-x-3 select-none">
