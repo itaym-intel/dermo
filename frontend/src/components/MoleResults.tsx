@@ -13,7 +13,8 @@ interface MoleResultsProps {
 
 const MoleResults: React.FC<MoleResultsProps> = ({ result, onBack }) => {
   const diagnosisColor = result.diagnosis === 'Cancer' ? 'text-red-600' : 'text-green-600';
-  const confidencePercentage = (result.confidence * 100).toFixed(1);
+  const confidence = Math.abs(.5 - result.confidence) * 2;
+  const confidencePercentage = (confidence * 100).toFixed(1);
 
   return (
     <div className="bg-white rounded-2xl shadow-card p-6 max-w-2xl mx-auto">
