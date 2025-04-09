@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
@@ -93,6 +93,9 @@ module.exports = {
             opacity: '1'
           }
         }
+      },
+      backgroundImage: {
+        'blue-900-600-grad': 'linear-gradient(to right, rgba(30, 58, 138, 0.9), rgba(37, 99, 235, 0.9))',
       },
     },
   },
