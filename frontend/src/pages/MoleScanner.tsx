@@ -248,6 +248,7 @@ const MoleScanner = () => {
                 <ImageCapture
                   onImageCapture={handleImageCapture}
                   buttonText="Upload Image"
+                  hideButtons={!!previewUrl && !croppedImage}
                 />
 
                 {croppedImage && (

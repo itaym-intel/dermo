@@ -3,101 +3,125 @@ import TopBar from '../components/TopBar';
 
 // Dataset visualization component
 const DatasetVisualization = () => {
-  // Dataset statistics
-  const datasetStats: Record<string, number> = {
-    "Bite & Infestation Reactions": 1036,
-    "Bullous & Blistering": 1404,
-    "Depigmentation Disorders": 3023,
-    "Infectious Lesions": 6173,
-    "Inflammatory Red Patches": 5105,
-    "Other": 1612,
-    "Pigmented Lesions": 356962,
-    "Tumor-like Growths": 5286,
-    "Vascular Lesions": 1259
+  // Using subfolder categories for more even distribution
+  const subfolderCategories: Record<string, number> = {
+    // Bite & Infestation Reactions
+    "Arthropod Bites": 585,
+    "Infestations": 451,
+    
+    // Bullous & Blistering
+    "Bullous Disorders": 446,
+    "Drug Reactions": 958,
+    
+    // Depigmentation Disorders
+    "Lichen Planus": 2117,
+    "Lupus": 277,
+    "Vitiligo": 629,
+    
+    // Infectious Lesions
+    "Bacterial Infections": 990,
+    "Candidiasis": 210,
+    "Fungal Infections": 2541,
+    "Viral Infections": 2432,
+    
+    // Inflammatory Red Patches
+    "Eczema & Dermatitis": 3471,
+    "Erythema Disorders": 496,
+    "Photodermatoses": 91,
+    "Pityriasis Rosea": 302,
+    "Psoriasis": 745,
+    
+    // Other
+    "Actinic Damage": 123,
+    "Normal Skin": 1489,
+    
+    // Pigmented Lesions
+    "Actinic Keratosis": 727,
+    "Lentigo": 64,
+    "Melanocytic Nevi (Moles)": 327365,
+    "Melanoma": 27062,
+    "Seborrheic Keratoses": 1744,
+    
+    // Tumor-like Growths
+    "Basal Cell Carcinoma": 2633,
+    "Benign Tumors": 2576,
+    "Squamous Cell Carcinoma": 77,
+    
+    // Vascular Lesions
+    "Urticaria": 300,
+    "Vascular Tumors": 561,
+    "Vasculitis": 398
   };
 
-  // Subfolder statistics for detailed view
-  const subfolderStats: Record<string, Record<string, number>> = {
-    "Bite & Infestation Reactions": {
-      "Arthropod Bites": 585,
-      "Infestations": 451
-    },
-    "Bullous & Blistering": {
-      "Bullous Disorders": 446,
-      "Drug Reactions": 958
-    },
-    "Depigmentation Disorders": {
-      "Lichen Planus": 2117,
-      "Lupus": 277,
-      "Vitiligo": 629
-    },
-    "Infectious Lesions": {
-      "Bacterial Infections": 990,
-      "Candidiasis": 210,
-      "Fungal Infections": 2541,
-      "Viral Infections": 2432
-    },
-    "Inflammatory Red Patches": {
-      "Eczema & Dermatitis": 3471,
-      "Erythema Disorders": 496,
-      "Photodermatoses": 91,
-      "Pityriasis Rosea": 302,
-      "Psoriasis": 745
-    },
-    "Other": {
-      "Actinic Damage": 123,
-      "Normal Skin": 1489
-    },
-    "Pigmented Lesions": {
-      "Actinic Keratosis": 727,
-      "Lentigo": 64,
-      "Melanocytic Nevi (Moles)": 327365,
-      "Melanoma": 27062,
-      "Seborrheic Keratoses": 1744
-    },
-    "Tumor-like Growths": {
-      "Basal Cell Carcinoma": 2633,
-      "Benign Tumors": 2576,
-      "Squamous Cell Carcinoma": 77
-    },
-    "Vascular Lesions": {
-      "Urticaria": 300,
-      "Vascular Tumors": 561,
-      "Vasculitis": 398
-    }
+  // Reorganized macro folders for more balanced visualization
+  const macroFolders: Record<string, string[]> = {
+    "Melanocytic Nevi": ["Melanocytic Nevi (Moles)"],
+    "Melanoma": ["Melanoma"],
+    "Other Pigmented Lesions": ["Actinic Keratosis", "Lentigo", "Seborrheic Keratoses"],
+    "Fungal & Viral Infections": ["Fungal Infections", "Viral Infections"],
+    "Bacterial & Yeast Infections": ["Bacterial Infections", "Candidiasis"],
+    "Eczema & Psoriasis": ["Eczema & Dermatitis", "Psoriasis"],
+    "Other Inflammatory Conditions": ["Erythema Disorders", "Photodermatoses", "Pityriasis Rosea"],
+    "Basal Cell Carcinoma": ["Basal Cell Carcinoma"],
+    "Benign Tumors": ["Benign Tumors"],
+    "Squamous Cell Carcinoma": ["Squamous Cell Carcinoma"],
+    "Lichen Planus": ["Lichen Planus"],
+    "Other Depigmentation": ["Lupus", "Vitiligo"],
+    "Bite & Infestation Reactions": ["Arthropod Bites", "Infestations"],
+    "Bullous & Blistering": ["Bullous Disorders", "Drug Reactions"],
+    "Vascular Lesions": ["Urticaria", "Vascular Tumors", "Vasculitis"],
+    "Other": ["Actinic Damage", "Normal Skin"]
   };
 
   // Calculate total images
-  const totalImages = Object.values(datasetStats).reduce((sum, count) => sum + count, 0);
+  const totalImages = Object.values(subfolderCategories).reduce((sum, count) => sum + count, 0);
   
-  // Calculate percentages for pie chart
-  const percentages = Object.entries(datasetStats).map(([category, count]) => ({
+  // Calculate macro folder statistics
+  const macroFolderStats = Object.entries(macroFolders).map(([macroFolder, subfolders]) => {
+    const totalCount = subfolders.reduce((sum, subfolder) => sum + subfolderCategories[subfolder], 0);
+    return {
+      category: macroFolder,
+      count: totalCount,
+      percentage: (totalCount / totalImages) * 100
+    };
+  });
+
+  // Sort macro folders by count
+  const sortedMacroFolders = [...macroFolderStats].sort((a, b) => b.count - a.count);
+
+  // Calculate percentages for subfolder visualization
+  const subfolderPercentages = Object.entries(subfolderCategories).map(([category, count]) => ({
     category,
     count,
     percentage: (count / totalImages) * 100
   }));
 
-  // Sort by count for bar chart
-  const sortedCategories = [...percentages].sort((a, b) => b.count - a.count);
+  // Sort subfolders by count
+  const sortedSubfolders = [...subfolderPercentages].sort((a, b) => b.count - a.count);
+  sortedSubfolders;
 
   // Colors for visualization
   const colors = [
     "#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6", 
-    "#EC4899", "#6366F1", "#14B8A6", "#F97316"
+    "#EC4899", "#6366F1", "#14B8A6", "#F97316", "#06B6D4",
+    "#84CC16", "#F43F5E", "#8B5CF6", "#EC4899", "#6366F1",
+    "#14B8A6", "#F97316", "#06B6D4", "#84CC16", "#F43F5E",
+    "#8B5CF6", "#EC4899", "#6366F1", "#14B8A6", "#F97316",
+    "#06B6D4", "#84CC16", "#F43F5E", "#8B5CF6"
   ];
 
   return (
     <div className="w-full">
       <div className="mb-4 text-center">
-        <h3 className="text-xl font-bold text-gray-800">Dataset Distribution</h3>
+        <h3 className="text-2xl font-bold text-gray-800">Dataset Distribution</h3>
         <p className="text-gray-600">Total Images: {totalImages.toLocaleString()}</p>
       </div>
       
-      {/* Bar Chart */}
+      {/* Bar Chart - Top 10 Macro Categories */}
       <div className="mb-6">
-        <h4 className="text-lg font-semibold text-gray-700 mb-2">Images by Category</h4>
+        <h4 className="text-lg font-semibold text-gray-700 mb-2">Top 10 Macro Categories</h4>
         <div className="space-y-2">
-          {sortedCategories.map((item, index) => (
+          {sortedMacroFolders.slice(0, 10).map((item, index) => (
             <div key={item.category} className="relative">
               <div className="flex justify-between mb-1">
                 <span className="text-sm font-medium text-gray-700">{item.category}</span>
@@ -107,7 +131,7 @@ const DatasetVisualization = () => {
                 <div 
                   className="h-2.5 rounded-full" 
                   style={{ 
-                    width: `${(item.count / sortedCategories[0].count) * 100}%`,
+                    width: `${(item.count / sortedMacroFolders[0].count) * 100}%`,
                     backgroundColor: colors[index % colors.length]
                   }}
                 ></div>
@@ -117,32 +141,8 @@ const DatasetVisualization = () => {
         </div>
       </div>
       
-      {/* Pie Chart (Simplified) */}
-      <div className="mb-6">
-        <h4 className="text-lg font-semibold text-gray-700 mb-2">Distribution Overview</h4>
-        <div className="flex flex-wrap justify-center gap-2">
-          {percentages.map((item, index) => (
-            <div key={item.category} className="flex items-center">
-              <div 
-                className="w-4 h-4 rounded-full mr-2" 
-                style={{ backgroundColor: colors[index % colors.length] }}
-              ></div>
-              <span className="text-sm text-gray-700">{item.category}: {item.percentage.toFixed(1)}%</span>
-            </div>
-          ))}
-        </div>
-      </div>
+
       
-      {/* Key Statistics */}
-      <div className="bg-blue-50 p-4 rounded-lg">
-        <h4 className="text-lg font-semibold text-gray-700 mb-2">Key Statistics</h4>
-        <ul className="space-y-1 text-sm text-gray-700">
-          <li>• Largest category: <span className="font-medium">{sortedCategories[0].category}</span> with {sortedCategories[0].count.toLocaleString()} images</li>
-          <li>• Smallest category: <span className="font-medium">{sortedCategories[sortedCategories.length - 1].category}</span> with {sortedCategories[sortedCategories.length - 1].count.toLocaleString()} images</li>
-          <li>• Average category size: {(totalImages / sortedCategories.length).toLocaleString()} images</li>
-          <li>• Total unique conditions: {Object.keys(subfolderStats).reduce((sum, category) => sum + Object.keys(subfolderStats[category]).length, 0)}</li>
-        </ul>
-      </div>
     </div>
   );
 };
@@ -150,14 +150,14 @@ const DatasetVisualization = () => {
 const About = () => {
   // Model statistics - these would be updated with real data
   const modelStats = {
-    accuracy: 94.2,
-    precision: 92.8,
-    recall: 91.5,
-    f1Score: 92.1,
-    classes: 28,
+    accuracy: 85.2,
+    precision: 71.9,
+    recall: 70.8,
+    f1Score: 71.2,
+    classes: 22,
     images: 25000,
-    trainingTime: "120 hours",
-    lastUpdated: "June 2023"
+    trainingTime: "6 hours",
+    lastUpdated: "April 2025"
   };
 
   // State for expanded table view
@@ -348,9 +348,9 @@ const About = () => {
       <TopBar />
       <div className="pt-40 pb-20 px-6">
         <div className="container mx-auto max-w-4xl">
-          <h1 className="text-4xl font-display mb-8 text-center">
+          <h1 className="mb-8 text-center">
             <span className="px-6 py-2 bg-blue-600 text-white rounded-lg">
-              About DermoAI
+              <span className="logo text-4xl">About Dermo</span>
             </span>
           </h1>
 
@@ -410,11 +410,11 @@ const About = () => {
               <table className="min-w-full divide-y divide-gray-200">
                 <thead className="bg-gray-50">
                   <tr>
-                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">Condition</th>
-                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">Cases</th>
-                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">Prevalence</th>
-                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5">Impact</th>
-                    <th scope="col" className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider w-1/5 hidden md:table-cell">Description</th>
+                    <th scope="col" className="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider w-1/5">Condition</th>
+                    <th scope="col" className="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider w-1/5">Cases</th>
+                    <th scope="col" className="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider w-1/5">Prevalence</th>
+                    <th scope="col" className="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider w-1/5">Impact</th>
+                    <th scope="col" className="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider w-1/5 hidden md:table-cell">Description</th>
                   </tr>
                 </thead>
                 <tbody className="bg-white divide-y divide-gray-200">
@@ -490,7 +490,7 @@ const About = () => {
                   </p>
                   
                   <div className="p-5 rounded-xl border border-blue-200 bg-gradient-to-br from-blue-50 to-white shadow-sm">
-                    <h3 className="text-xl font-bold text-primary-800 mb-3">Dataset Highlights</h3>
+                    <h3 className="text-2xl font-bold text-primary-800 mb-3">Dataset Highlights</h3>
                     <ul className="space-y-2">
                       <li className="flex items-start">
                         <span className="text-blue-600 mr-2">✓</span>
@@ -523,10 +523,10 @@ const About = () => {
           <div className="bg-white rounded-2xl shadow-card p-6 mb-8">
             <h2 className="text-3xl font-bold text-primary-900 mb-4">Model Performance</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div className="space-y-4">
+              <div className="space-y-9">
                 <div className="p-4 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
                   <div className="flex justify-between items-center">
-                    <h3 className="text-xl font-bold text-primary-800">Accuracy</h3>
+                    <h3 className="text-2xl font-bold text-primary-800">Accuracy</h3>
                     <span className="text-2xl font-bold text-blue-600">{modelStats.accuracy}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
@@ -535,7 +535,7 @@ const About = () => {
                 </div>
                 <div className="p-4 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
                   <div className="flex justify-between items-center">
-                    <h3 className="text-xl font-bold text-primary-800">Precision</h3>
+                    <h3 className="text-2xl font-bold text-primary-800">Precision</h3>
                     <span className="text-2xl font-bold text-blue-600">{modelStats.precision}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
@@ -544,7 +544,7 @@ const About = () => {
                 </div>
                 <div className="p-4 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
                   <div className="flex justify-between items-center">
-                    <h3 className="text-xl font-bold text-primary-800">Recall</h3>
+                    <h3 className="text-2xl font-bold text-primary-800">Recall</h3>
                     <span className="text-2xl font-bold text-blue-600">{modelStats.recall}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
@@ -555,7 +555,7 @@ const About = () => {
               <div className="space-y-4">
                 <div className="p-4 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
                   <div className="flex justify-between items-center">
-                    <h3 className="text-xl font-bold text-primary-800">F1 Score</h3>
+                    <h3 className="text-2xl font-bold text-primary-800">F1 Score</h3>
                     <span className="text-2xl font-bold text-blue-600">{modelStats.f1Score}%</span>
                   </div>
                   <div className="w-full bg-gray-200 rounded-full h-2.5 mt-2">
@@ -563,13 +563,29 @@ const About = () => {
                   </div>
                 </div>
                 <div className="p-4 rounded-lg border bg-gradient-to-br from-blue-100 to-blue-50">
-                  <h3 className="text-xl font-bold text-primary-800">Model Details</h3>
-                  <ul className="list-disc list-inside text-gray-700 space-y-1">
-                    <li>Classes: {modelStats.classes}</li>
-                    <li>Training Images: {modelStats.images}</li>
-                    <li>Training Time: {modelStats.trainingTime}</li>
-                    <li>Last Updated: {modelStats.lastUpdated}</li>
-                  </ul>
+                <h3 className="text-2xl font-bold text-primary-800 mb-3">Model Details</h3>
+                    <ul className="space-y-2">
+                      <li className="flex items-start">
+                        <span className="text-blue-600 mr-2">✓</span>
+                        <span className="text-gray-700">22 Classes of Skin Conditions</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-blue-600 mr-2">✓</span>
+                        <span className="text-gray-700">380,000+ TrainingImages</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-blue-600 mr-2">✓</span>
+                        <span className="text-gray-700">6 Hours of Training Time</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-blue-600 mr-2">✓</span>
+                        <span className="text-gray-700">Hypertuned with Google ViT Model</span>
+                      </li>
+                      <li className="flex items-start">
+                        <span className="text-blue-600 mr-2">✓</span>
+                        <span className="text-gray-700">Optimized with CUDA</span>
+                      </li>
+                    </ul>
                 </div>
               </div>
             </div>
