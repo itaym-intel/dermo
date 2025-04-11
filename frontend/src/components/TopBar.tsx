@@ -86,8 +86,9 @@ const TopBar = () => {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-4 animate-fade-in">
-            <Link to="/" className="block text-primary-700 hover:text-blue-600 transition-colors font-medium">Home</Link>
-            <Link to="/diagnosis" className="block text-primary-700 hover:text-blue-600 transition-colors font-medium">Diagnosis</Link>
+            <Link to="/diagnosis" className="block text-primary-700 hover:text-blue-600 transition-colors font-medium">Home</Link>
+            <Link to="/mole-scanner" className="block text-primary-700 hover:text-blue-600 transition-colors font-medium">Mole Scanner</Link>
+            <Link to="/skin-scanner" className="block text-primary-700 hover:text-blue-600 transition-colors font-medium">Skin Scanner</Link>
             <Link to="/about" className="block text-primary-700 hover:text-blue-600 transition-colors font-medium">About</Link>
             {user ? (
               <button 

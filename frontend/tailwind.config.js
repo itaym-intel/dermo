@@ -95,7 +95,7 @@ export default {
         }
       },
       backgroundImage: {
-        'blue-900-600-grad': 'linear-gradient(to right, rgba(30, 58, 138, 0.9), rgba(37, 99, 235, 0.9))',
+        'blue-900-600-grad': 'linear-gradient(to right, rgba(30, 58, 138, 0.85), rgba(37, 99, 235, 0.85))',
       },
     },
   },

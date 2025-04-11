@@ -407,28 +407,30 @@ const About = () => {
             </p>
             
             <div className="w-full">
-              <table className="min-w-full divide-y divide-gray-200">
-                <thead className="bg-gray-50">
-                  <tr>
-                    <th scope="col" className="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider w-1/5">Condition</th>
-                    <th scope="col" className="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider w-1/5">Cases</th>
-                    <th scope="col" className="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider w-1/5">Prevalence</th>
-                    <th scope="col" className="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider w-1/5">Impact</th>
-                    <th scope="col" className="px-4 py-3 text-left text-sm font-medium text-gray-500 uppercase tracking-wider w-1/5 hidden md:table-cell">Description</th>
-                  </tr>
-                </thead>
-                <tbody className="bg-white divide-y divide-gray-200">
-                  {(isTableExpanded ? skinDiseaseStats : topDiseases).map((disease, index) => (
-                    <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
-                      <td className="px-4 py-3 text-sm font-medium text-gray-900">{disease.name}</td>
-                      <td className="px-4 py-3 text-sm text-gray-500">{disease.cases}</td>
-                      <td className="px-4 py-3 text-sm text-gray-500">{disease.prevalence}</td>
-                      <td className="px-4 py-3 text-sm text-gray-500">{disease.impact}</td>
-                      <td className="px-4 py-3 text-sm text-gray-500 hidden md:table-cell">{disease.description}</td>
+              <div className="overflow-x-auto">
+                <table className="min-w-full divide-y divide-gray-200">
+                  <thead className="bg-gray-50">
+                    <tr>
+                      <th scope="col" className="px-2.5 py-2.5 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider w-1/4">Condition</th>
+                      <th scope="col" className="px-2.5 py-2.5 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider w-1/6">Cases</th>
+                      <th scope="col" className="px-2.5 py-2.5 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider w-1/6">Prevalence</th>
+                      <th scope="col" className="px-2.5 py-2.5 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider w-1/6">Impact</th>
+                      <th scope="col" className="px-2.5 py-2.5 text-left text-xs sm:text-sm font-medium text-gray-500 uppercase tracking-wider w-1/4 hidden md:table-cell">Description</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody className="bg-white divide-y divide-gray-200">
+                    {(isTableExpanded ? skinDiseaseStats : topDiseases).map((disease, index) => (
+                      <tr key={index} className={index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}>
+                        <td className="px-2.5 py-2.5 text-sm font-medium text-gray-900">{disease.name}</td>
+                        <td className="px-2.5 py-2.5 text-sm text-gray-500">{disease.cases}</td>
+                        <td className="px-2.5 py-2.5 text-sm text-gray-500">{disease.prevalence}</td>
+                        <td className="px-2.5 py-2.5 text-sm text-gray-500">{disease.impact}</td>
+                        <td className="px-2.5 py-2.5 text-sm text-gray-500 hidden md:table-cell">{disease.description}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
             
             {/* Expand/Collapse Button */}
@@ -446,7 +448,7 @@ const About = () => {
                   </>
                 ) : (
                   <>
-                    <span>Show All {skinDiseaseStats.length} Conditions</span>
+                    <span>Show All {skinDiseaseStats.length + 1} Conditions</span>  {/* Otherwise it shows 21. +1 for Normal skin? */}
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 ml-2" viewBox="0 0 20 20" fill="currentColor">
                       <path fillRule="evenodd" d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 111.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z" clipRule="evenodd" />
                     </svg>
@@ -599,7 +601,7 @@ const About = () => {
             </p>
             <div className="flex flex-col sm:flex-row justify-center gap-4">
               <a 
-                href="https://github.com/yourusername/dermoai" 
+                href="https://github.com/itaym-intel/dermo" 
                 target="_blank" 
                 rel="noopener noreferrer"
                 className="px-6 py-3 bg-white text-blue-600 rounded-xl hover:bg-gray-100 transition-colors font-medium shadow-sm"
@@ -607,7 +609,9 @@ const About = () => {
                 GitHub Repository
               </a>
               <a 
-                href="/contact" 
+                href="https://forms.gle/Qg5pTgL8hZU3p6um9" 
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-6 py-3 bg-transparent border-2 border-white text-white rounded-xl hover:bg-white hover:text-blue-600 transition-colors font-medium shadow-sm"
               >
                 Contact Us

@@ -84,6 +84,30 @@ const LandingPage = () => {
                 id="hero-title"
                 style={{ opacity: 1, transform: 'translateY(0)' }}
               >
+                {/*Idk if we're not putting "Dermo" on the front page on purpose
+                Imo it makes sense to put it here but leaving it commented out
+                Added a cool little hover effect to it -Michal*/}
+                {/* <div className="inline-block">
+                  <div 
+                    className="text-7xl md:text-9xl font-logo text-blue-300 hover:scale-105 transition-all duration-300 ease-out cursor-pointer inline-block relative"
+                    onMouseMove={(e) => {
+                      const rect = e.currentTarget.getBoundingClientRect();
+                      const x = e.clientX - rect.left;
+                      const y = e.clientY - rect.top;
+                      const centerX = rect.width / 2;
+                      const centerY = rect.height / 2;
+                      const rotateX = (y - centerY) / 20;
+                      const rotateY = (centerX - x) / 20;
+                      e.currentTarget.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.05)`;
+                    }}
+                    onMouseLeave={(e) => {
+                      e.currentTarget.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+                    }}
+                  >
+                    Dermo
+                  </div>
+                </div>
+                <br/> */}
                 Your Personal<br />
                 <span className="text-blue-300">Dermatology</span><br />
                 Smart Assistant
@@ -100,17 +124,15 @@ const LandingPage = () => {
                 id="hero-buttons"
                 style={{ opacity: 1, transform: 'translateY(0)' }}
               >
-                <div className="bg-blue-900-600-grad rounded-lg hover:opacity-90 transition-all shadow-lg hover:shadow-xl">
-                  <button 
-                    onClick={() => navigate('/diagnosis')}
-                    className="px-8 py-4 bg-blue-900-600-grad text-white rounded-lg hover:opacity-90 transition-all font-medium text-lg shadow-lg hover:shadow-xl outline-none border-0 appearance-none"
-                  >
-                    Start Diagnosis
-                  </button>
-                </div>
+                <button 
+                  onClick={() => navigate('/diagnosis')}
+                  className="px-8 py-4 bg-blue-900-600-grad text-white rounded-lg hover:opacity-90 transition-all font-medium text-lg shadow-lg hover:shadow-xl outline-none border-0 appearance-none w-full sm:w-auto"
+                >
+                  Start Diagnosis
+                </button>
                 <button 
                   onClick={() => contentRef.current?.scrollIntoView({ behavior: 'smooth' })}
-                  className="px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium text-lg"
+                  className="px-8 py-4 bg-white text-blue-600 rounded-lg hover:bg-blue-50 transition-colors font-medium text-lg w-full sm:w-auto"
                 >
                   Learn More
                 </button>
@@ -304,7 +326,7 @@ const LandingPage = () => {
             </div>
             <div className="opacity-90 hover:opacity-100 transition-all">
               <button 
-                onClick={() => navigate('/login')}
+                onClick={() => navigate('/diagnosis')}
                 className={`px-8 py-4 bg-blue-900-600-grad text-white rounded-lg transition-all font-medium text-lg shadow-xl outline-none border-0 appearance-none animate-on-scroll ${getAnimationClass('cta-button')}`}
                 id="cta-button"
               >
